@@ -19,7 +19,7 @@ const prestations = [
     price: "95 €",
     desc: "Une approche personnalisée mêlant différentes techniques pour un soin profondément régénérant.",
     details:
-      "Chaque séance est unique et guidée par l’intuition et la lecture du corps. Ce massage combine gestes énergétiques, effleurages et pressions ciblées pour équilibrer les flux vitaux et dénouer les blocages.",
+      "Alliance du toucher énergétique, magnétique et relaxant, ce massage s’adapte à vos besoins du moment. Il aide à libérer les tensions émotionnelles et physiques, tout en réveillant l’énergie vitale et la sérénité intérieure.",
     image: "/images/massage-intuitif.jpg",
   },
   {
@@ -28,7 +28,7 @@ const prestations = [
     price: "55 €",
     desc: "Rééquilibrage subtil du flux énergétique pour apaiser les tensions physiques et émotionnelles.",
     details:
-      "Grâce au magnétisme et à l’écoute subtile, ce soin nettoie les charges émotionnelles, revitalise le corps et rétablit la circulation harmonieuse des énergies.",
+      "Ce soin rééquilibre vos centres d’énergie (chakras), libère les blocages émotionnels et apaise les tensions intérieures. Il favorise le lâcher-prise et une sensation de légèreté.",
     image: "/images/massage-energetique.jpg",
   },
   {
@@ -37,7 +37,7 @@ const prestations = [
     price: "65 €",
     desc: "Une détente guidée pour relâcher le mental et détendre le corps tout entier.",
     details:
-      "La séance vise à reconnecter corps et esprit à travers la respiration, les gestes lents et l’écoute du rythme naturel. Idéal pour apaiser le stress du quotidien.",
+      "Une détente profonde guidée par la respiration, les sons ou des visualisations apaisantes. Idéal pour calmer le mental, améliorer le sommeil et retrouver un état de paix intérieure.",
     image: "/images/relaxation.jpg",
   },
   {
@@ -46,7 +46,7 @@ const prestations = [
     price: "50 €",
     desc: "Massage habillé sur chaise, efficace et revitalisant, idéal pour relâcher les tensions musculaires.",
     details:
-      "Ce massage se pratique sur une chaise ergonomique et agit sur les points de tension du dos, des bras, du cou et de la tête. Il procure une sensation de légèreté immédiate.",
+      "Massage rapide et habillé, réalisé sur chaise. Parfait pour soulager les tensions du dos, des épaules et du cou, et retrouver énergie et concentration.",
     image: "/images/massage-amma.jpg",
   },
   {
@@ -55,7 +55,7 @@ const prestations = [
     price: "50 €",
     desc: "Soin ciblé sur les extrémités pour une détente profonde et une circulation stimulée.",
     details:
-      "Ce massage favorise la circulation énergétique et détend les zones réflexes souvent négligées. Un moment de lâcher-prise total.",
+      "Ce soin complet agit sur les zones réflexes pour stimuler la circulation et relâcher les tensions. Il offre une profonde sensation d’ancrage et de bien-être global.",
     image: "/images/massage-tete-pieds-mains.jpg",
   },
   {
@@ -64,7 +64,7 @@ const prestations = [
     price: "20 €",
     desc: "Massage énergique des pieds apportant une sensation immédiate d’ancrage et de légèreté.",
     details:
-      "Ce soin combine pressions et étirements des zones réflexes des pieds pour rééquilibrer le corps et stimuler l’énergie vitale.",
+      "Massage énergique et précis des pieds pour relancer la circulation, réduire la fatigue et ancrer l’énergie. Idéal après une longue journée ou en période de stress.",
     image: "/images/power-feet.jpg",
   },
   {
@@ -73,7 +73,7 @@ const prestations = [
     price: "25 €",
     desc: "Soin revitalisant du cuir chevelu pour libérer les tensions mentales.",
     details:
-      "Massage relaxant du cuir chevelu, du visage et de la nuque. Il favorise la clarté d’esprit et améliore la qualité du sommeil.",
+      "Stimulant la circulation sanguine et nerveuse, il aide à soulager les migraines, les tensions cervicales et favorise la concentration et la clarté mentale.",
     image: "/images/power-head.jpg",
   },
   {
@@ -82,7 +82,7 @@ const prestations = [
     price: "130 €",
     desc: "Massage tonique et stimulant, pour optimiser les performances physiques.",
     details:
-      "Techniques rapides et profondes pour échauffer les muscles, améliorer la mobilité et prévenir les blessures avant un effort intense.",
+      "Spécialement conçu pour les sportifs, il prépare le corps à l’effort ou aide à récupérer après l’entraînement. Il améliore la souplesse, diminue les douleurs musculaires et prévient les blessures.",
     image: "/images/massage-sportif.jpg",
   },
   {
@@ -91,7 +91,7 @@ const prestations = [
     price: "150 €",
     desc: "Massage ciblé pour favoriser la récupération musculaire et réduire les courbatures.",
     details:
-      "Massage profond et drainant pour éliminer les toxines, apaiser les contractures et accélérer la régénération musculaire.",
+      "Idéal après une séance intense, ce soin favorise l’élimination des toxines et réduit les courbatures. Il soutient la régénération musculaire et la détente profonde.",
     image: "/images/massage-recuperation.jpg",
   },
   {
@@ -100,7 +100,7 @@ const prestations = [
     price: "95 €",
     desc: "Soin en profondeur pour détendre les tissus et activer les points d’énergie du corps.",
     details:
-      "Travail précis sur les méridiens et points d’acupression. Permet de relâcher les tensions accumulées et d’activer la circulation énergétique.",
+      "Ce massage profond agit sur les méridiens énergétiques et les points clés du corps. Il libère les blocages physiques et émotionnels et favorise un réalignement global.",
     image: "/images/massage-acupression.jpg",
   },
 ];

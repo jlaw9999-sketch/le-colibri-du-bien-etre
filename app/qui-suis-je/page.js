@@ -61,8 +61,7 @@ export default function QuiSuisJe() {
           <p>
             Aujourd’hui, je suis certifiée en{" "}
             <strong>
-              massage holistique, magnétisme, Power Wellness et réflexologie
-              plantaire
+              massage holistique, magnétisme et en bien-être énergétique
             </strong>
             . J’exerce en tant que praticienne indépendante et également en
             partenariat avec des structures spécialisées dans le bien-être.
@@ -72,7 +71,7 @@ export default function QuiSuisJe() {
           </p>
 
           <p>
-            En 2023, j’ai fondé{" "}
+            En 2025, j’ai fondé{" "}
             <strong>Le Colibri du Bien-Être</strong>, symbole de légèreté et de
             lumière, pour proposer des soins individualisés, empreints de
             respect, d’éthique et d’authenticité. Ma pratique repose sur une
