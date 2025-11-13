@@ -9,52 +9,47 @@ export default function HomePage() {
 
       {/* --- SECTION HERO --- */}
 <section
-  className="relative h-screen flex flex-col justify-center items-center text-center bg-cover bg-center"
+  className="relative min-h-[110vh] flex flex-col justify-between items-center text-center bg-cover bg-center overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24"
   style={{ backgroundImage: "url('/images/background-accueil.jpg')" }}
 >
-  {/* ✅ fond légèrement éclairci */}
-  <div className="absolute inset-0 bg-black/15 backdrop-blur-[1.5px]"></div>
-
-  {/* ✅ halo de lumière doux derrière le logo */}
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-100/20 rounded-full blur-3xl"></div>
+  {/* Fond plus clair pour que le logo se détache */}
+  <div className="absolute inset-0 bg-black/25 sm:bg-black/30 backdrop-blur-[1.5px]"></div>
 
   <motion.div
-    initial={{ opacity: 0, y: -20, scale: 0.95 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ duration: 1 }}
-    className="relative z-10"
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 1.2 }}
+    className="relative z-10 w-full px-6 flex flex-col items-center"
   >
-    <div className="flex flex-col items-center space-y-6">
-      <Image
-        src="/images/logo-colibri.png"
-        alt="Logo Le Colibri du Bien-Être"
-        width={600}
-        height={600}
-        className="drop-shadow-[0_0_25px_rgba(255,255,255,0.25)]"
-        priority
-      />
+    <Image
+      src="/images/logo-colibri.png"
+      alt="Logo Le Colibri du Bien-Être"
+      width={330}
+      height={330}
+      className="drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] mb-6 mt-10 sm:mt-4"
+      priority
+    />
 
-      <h1 className="text-6xl md:text-7xl font-[GreatVibes] text-amber-100 drop-shadow-lg tracking-wide">
-        Le Colibri du Bien-Être
-      </h1>
+    <h1 className="text-4xl sm:text-5xl font-[GreatVibes] text-amber-100 drop-shadow-md leading-tight">
+      Le Colibri du Bien-Être
+    </h1>
 
-      <p className="text-lg md:text-xl text-white/90 italic max-w-2xl mx-auto">
-        « Par mes mains, je vous aide à écouter ce que votre corps murmure. »
-      </p>
+    <p className="text-base sm:text-lg text-white/90 italic max-w-md mx-auto mt-4 mb-8">
+      « Par mes mains, je vous aide à écouter ce que votre corps murmure. »
+    </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 mt-6">
-        <Link href="/prestations">
-          <button className="bg-amber-400 hover:bg-amber-500 text-white px-6 py-3 rounded-full font-medium transition">
-            Découvrir les prestations
-          </button>
-        </Link>
+    <div className="flex flex-col sm:flex-row gap-3">
+      <Link href="/prestations">
+        <button className="bg-amber-400 hover:bg-amber-500 text-white px-5 py-3 rounded-full font-medium transition">
+          Découvrir les prestations
+        </button>
+      </Link>
 
-        <Link href="/reservation">
-          <button className="bg-white/80 hover:bg-white text-amber-700 px-6 py-3 rounded-full font-medium transition">
-            Prendre rendez-vous
-          </button>
-        </Link>
-      </div>
+      <Link href="/reservation">
+        <button className="bg-white/80 hover:bg-white text-amber-700 px-5 py-3 rounded-full font-medium transition">
+          Prendre rendez-vous
+        </button>
+      </Link>
     </div>
   </motion.div>
 </section>
