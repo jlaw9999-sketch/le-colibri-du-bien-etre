@@ -37,14 +37,18 @@ export default function HomePage() {
           className="relative z-[10] flex flex-col items-center px-6"
         >
           {/* LOGO */}
-          <Image
-            src="/images/logo-colibri.png"
-            alt="Logo Le Colibri du Bien-Être"
-            width={450}
-            height={450}
-            priority
-            className="relative z-[10] drop-shadow-[0_0_25px_rgba(255,255,255,0.9)]"
-          />
+<Image
+  src="/images/logo-colibri.png"
+  alt="Logo Le Colibri du Bien-Être"
+  width={260}
+  height={260}
+  className="
+    drop-shadow-2xl relative z-[10]
+    sm:w-[340px] sm:h-[340px]    /* TABLETTE */
+    lg:w-[450px] lg:h-[450px]    /* DESKTOP */
+  "
+  priority
+/>
 
           {/* TITRE ELEGANT GREAT VIBES */}
 <h1
