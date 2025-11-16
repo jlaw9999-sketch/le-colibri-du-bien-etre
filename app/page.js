@@ -40,8 +40,8 @@ export default function HomePage() {
 <Image
   src="/images/logo-colibri.png"
   alt="Logo Le Colibri du Bien-Être"
-  width={260}
-  height={260}
+  width={220}
+  height={220}
   className="
     drop-shadow-2xl relative z-[10]
     sm:w-[340px] sm:h-[340px]    /* TABLETTE */
