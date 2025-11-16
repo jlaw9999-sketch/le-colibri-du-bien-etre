@@ -5,60 +5,92 @@ import { motion } from "framer-motion";
 
 export default function HomePage() {
   return (
-    <main className="bg-amber-50 text-gray-800">
+    <main className="bg-amber-50 text-gray-800 font-inter">
+      {/* -------------------------------------------- */}
+      {/* HERO PREMIUM */}
+      {/* -------------------------------------------- */}
 
-      {/* --- SECTION HERO --- */}
-<section
-  className="relative min-h-[110vh] flex flex-col justify-between items-center text-center bg-cover bg-center overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24"
-  style={{ backgroundImage: "url('/images/background-accueil.jpg')" }}
+      <section
+        className="
+          relative flex flex-col justify-center items-center text-center 
+          h-screen overflow-hidden
+          bg-cover bg-center
+          md:bg-[url('/images/background-accueil.jpg')]
+          bg-[url('/images/background-accueil-mobile.jpg')]
+        "
+      >
+        {/* --- FILTRE GLOBAL LÉGER --- */}
+        <div
+          className="
+            absolute inset-0 z-[5]
+            bg-black/25
+            backdrop-blur-[4px]
+          "
+        ></div>
+
+
+        {/* --- CONTENU --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-[10] flex flex-col items-center px-6"
+        >
+          {/* LOGO */}
+          <Image
+            src="/images/logo-colibri.png"
+            alt="Logo Le Colibri du Bien-Être"
+            width={600}
+            height={600}
+            priority
+            className="relative z-[10] drop-shadow-[0_0_25px_rgba(255,255,255,0.9)]"
+          />
+
+          {/* TITRE ELEGANT GREAT VIBES */}
+<h1
+  className="
+    font-greatvibes mt-4 text-5xl md:text-7xl 
+    text-amber-700
+    drop-shadow-[0_0_12px_rgba(255,255,255,1)]
+  "
 >
-  {/* Fond plus clair pour que le logo se détache */}
-  <div className="absolute inset-0 bg-black/25 sm:bg-black/30 backdrop-blur-[1.5px]"></div>
+  Le Colibri du Bien-Être
+</h1>
 
-  <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 1.2 }}
-    className="relative z-10 w-full px-6 flex flex-col items-center"
-  >
-    <Image
-      src="/images/logo-colibri.png"
-      alt="Logo Le Colibri du Bien-Être"
-      width={330}
-      height={330}
-      className="drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] mb-6 mt-10 sm:mt-4"
-      priority
-    />
+          {/* SLOGAN (meilleure lisibilité) */}
+<p
+  className="
+    text-lg md:text-2xl mt-4 max-w-xl italic 
+    text-white
+    drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]
+  "
+>
+  « Par mes mains, je vous aide à écouter ce que votre corps murmure. »
+</p>
 
-    <h1 className="text-4xl sm:text-5xl font-[GreatVibes] text-amber-100 drop-shadow-md leading-tight">
-      Le Colibri du Bien-Être
-    </h1>
+          {/* BOUTONS */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
+            <Link href="/prestations">
+              <button className="bg-amber-400 hover:bg-amber-500 text-white px-7 py-3 rounded-full font-semibold shadow-md transition">
+                Découvrir les prestations
+              </button>
+            </Link>
 
-    <p className="text-base sm:text-lg text-white/90 italic max-w-md mx-auto mt-4 mb-8">
-      « Par mes mains, je vous aide à écouter ce que votre corps murmure. »
-    </p>
-
-    <div className="flex flex-col sm:flex-row gap-3">
-      <Link href="/prestations">
-        <button className="bg-amber-400 hover:bg-amber-500 text-white px-5 py-3 rounded-full font-medium transition">
-          Découvrir les prestations
-        </button>
-      </Link>
-
-      <Link href="/reservation">
-        <button className="bg-white/80 hover:bg-white text-amber-700 px-5 py-3 rounded-full font-medium transition">
-          Prendre rendez-vous
-        </button>
-      </Link>
-    </div>
-  </motion.div>
-</section>
+            <Link href="/reservation">
+              <button className="bg-white/90 hover:bg-white text-amber-700 px-7 py-3 rounded-full font-semibold shadow-md transition">
+                Prendre rendez-vous
+              </button>
+            </Link>
+          </div>
+        </motion.div>
+      </section>
 
       {/* --- SECTION DÉCOUVERTE --- */}
       <section className="py-20 px-6 bg-gradient-to-b from-amber-50 to-white text-center">
         <h2 className="text-3xl font-semibold text-amber-700 mb-6">
           Découvrez l’art du bien-être
         </h2>
+
         <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
           Offrez-vous un moment pour respirer, lâcher prise et retrouver l’équilibre.
           Chaque soin est une invitation à reconnecter votre corps, votre esprit et votre énergie.
@@ -99,9 +131,11 @@ export default function HomePage() {
             height={150}
             className="mx-auto rounded-full shadow-md"
           />
+
           <h2 className="text-3xl font-semibold text-amber-800">
             Le Colibri, symbole d’équilibre et de joie
           </h2>
+
           <p className="text-lg text-gray-700 italic">
             Symbole de vitalité et de légèreté, le colibri nous enseigne que chaque instant
             de bien-être est un retour à soi, une invitation à la paix intérieure.
@@ -112,13 +146,16 @@ export default function HomePage() {
       {/* --- SECTION FINALE / APPEL À L’ACTION --- */}
       <section
         className="relative bg-cover bg-center py-24 text-center text-white"
-        style={{ backgroundImage: "url('/images/background-detente.jpg')" }}
+        style={{
+          backgroundImage: "url('/images/background-detente.jpg')",
+        }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 max-w-3xl mx-auto">
           <h2 className="text-3xl font-semibold mb-6">Offrez-vous un moment pour vous</h2>
+
           <p className="text-lg mb-8">
-            Découvrez les différents bonheurs que nous vous proposons et laissez-vous guider
+            Découvrez les différents bonheurs que nous vous vous proposons et laissez-vous guider
             vers le soin qui vous ressemble.
           </p>
 

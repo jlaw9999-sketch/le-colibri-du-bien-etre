@@ -1,11 +1,19 @@
 // app/layout.js
+
+import { Great_Vibes } from "next/font/google";
+
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
+
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
   title: "Le Colibri du Bien-Être",
-  description: "Massages holistiques et soins énergétiques à l’écoute du corps et de l’âme.",
+  description: "Massages, soins et bien-être holistique",
 };
 
 export default function RootLayout({ children }) {
@@ -13,7 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="fr">
       <body className="bg-amber-50 text-gray-800">
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
