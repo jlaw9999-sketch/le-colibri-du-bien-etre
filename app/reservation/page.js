@@ -38,16 +38,16 @@ export default function ReservationPage() {
         Choisissez la prestation qui vous correspond et proposez une date et une heure.
       </p>
 
-      <motion.form
-        action="https://formsubmit.co/lecolibridubienetre@gmail.com"
-        method="POST"
-        whileHover={{ scale: 1.01 }}
-        className="max-w-lg mx-auto text-left bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg space-y-4"
-      >
-        {/* redirection après envoi (local) */}
-        <input type="hidden" name="_next" value="http://localhost:3000/merci" />
-        <input type="hidden" name="_subject" value="Nouvelle demande de réservation - Le Colibri du Bien-Être" />
-        <input type="hidden" name="_captcha" value="false" />
+     <motion.form
+  action="https://formsubmit.co/lecolibridubienetre@gmail.com"
+  method="POST"
+  whileHover={{ scale: 1.01 }}
+  className="max-w-lg mx-auto text-left bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg space-y-4"
+>
+  {/* Redirection après envoi (PRODUCTION) */}
+  <input type="hidden" name="_next" value="https://www.lecolibridubienetre.fr/merci" />
+  <input type="hidden" name="_subject" value="Nouvelle demande de réservation - Le Colibri du Bien-Être" />
+  <input type="hidden" name="_captcha" value="false" />
 
         <input
           type="text"
