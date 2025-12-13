@@ -90,42 +90,51 @@ export default function ReservationPage() {
           <option value="Massage profond avec points d'accupression">Massage profond avec points d'accupression</option>
         </select>
 
-        <div className="flex gap-4">
-         <input
-  type="date"
-  name="date"
-  value={formData.date}
-  onChange={handleDate}
-  className="
-    w-1/2
-    bg-white
-    text-gray-900
-    border border-amber-200
-    rounded-lg p-3
-    focus:ring-2 focus:ring-amber-400
-    appearance-none
-  "
-  style={{ colorScheme: "light" }}
-  required
-/>
-         <input
-  type="time"
-  name="time"
-  value={formData.time}
-  onChange={handleChange}
-  className="
-    w-1/2
-    bg-white
-    text-gray-900
-    border border-amber-200
-    rounded-lg p-3
-    focus:ring-2 focus:ring-amber-400
-    appearance-none
-  "
-  style={{ colorScheme: "light" }}
-  required
-/>
-        </div>
+       <div className="flex gap-4">
+  <div className="w-1/2">
+    <label className="block text-sm text-gray-600 mb-1">
+      Date souhaitée
+    </label>
+    <input
+      type="date"
+      name="date"
+      value={formData.date}
+      onChange={handleDate}
+      className="
+        w-full
+        border border-amber-300
+        rounded-lg p-3
+        bg-white
+        text-gray-800
+        appearance-none
+        focus:ring-2 focus:ring-amber-400
+      "
+      required
+    />
+  </div>
+
+  <div className="w-1/2">
+    <label className="block text-sm text-gray-600 mb-1">
+      Heure souhaitée
+    </label>
+    <input
+      type="time"
+      name="time"
+      value={formData.time}
+      onChange={handleChange}
+      className="
+        w-full
+        border border-amber-300
+        rounded-lg p-3
+        bg-white
+        text-gray-800
+        appearance-none
+        focus:ring-2 focus:ring-amber-400
+      "
+      required
+    />
+  </div>
+</div>
 
         <textarea
           name="message"
