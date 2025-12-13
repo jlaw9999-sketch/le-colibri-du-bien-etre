@@ -91,22 +91,40 @@ export default function ReservationPage() {
         </select>
 
         <div className="flex gap-4">
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleDate}
-            className="w-1/2 border border-amber-200 rounded-lg p-3 focus:ring-2 focus:ring-amber-400"
-            required
-          />
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
-            onChange={handleChange}
-            className="w-1/2 border border-amber-200 rounded-lg p-3 focus:ring-2 focus:ring-amber-400"
-            required
-          />
+         <input
+  type="date"
+  name="date"
+  value={formData.date}
+  onChange={handleDate}
+  className="
+    w-1/2
+    bg-white
+    text-gray-900
+    border border-amber-200
+    rounded-lg p-3
+    focus:ring-2 focus:ring-amber-400
+    appearance-none
+  "
+  style={{ colorScheme: "light" }}
+  required
+/>
+         <input
+  type="time"
+  name="time"
+  value={formData.time}
+  onChange={handleChange}
+  className="
+    w-1/2
+    bg-white
+    text-gray-900
+    border border-amber-200
+    rounded-lg p-3
+    focus:ring-2 focus:ring-amber-400
+    appearance-none
+  "
+  style={{ colorScheme: "light" }}
+  required
+/>
         </div>
 
         <textarea
