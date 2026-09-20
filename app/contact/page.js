@@ -1,11 +1,12 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { Mail, Phone } from "lucide-react";
 
 export default function Contact() {
   return (
     <section
-      className="min-h-screen bg-cover bg-center py-20 px-6 md:px-20 text-center"
+      className="min-h-screen bg-cover bg-center pt-32 pb-20 px-6 md:px-20 text-center flex items-center justify-center"
       style={{
         backgroundImage: "url('/images/background-contact.jpg')",
         backgroundRepeat: "no-repeat",
@@ -17,7 +18,7 @@ export default function Contact() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm p-10 rounded-2xl shadow-lg"
+        className="max-w-3xl w-full mx-auto bg-white/80 backdrop-blur-sm p-10 rounded-2xl shadow-lg"
       >
         <h2 className="text-4xl font-semibold text-amber-800 mb-6">Contactez-nous</h2>
         <p className="text-gray-700 mb-8">
@@ -39,7 +40,6 @@ export default function Contact() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-800 hover:text-amber-700"
           >
-            {/* You can replace the SVG with lucide-react Facebook icon if preferred */}
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
             </svg>
