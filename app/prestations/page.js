@@ -179,7 +179,7 @@ export default function Prestations() {
 
   return (
     <section
-      className="min-h-screen py-16 px-4 md:px-12 bg-cover bg-center"
+      className="min-h-screen pt-28 pb-16 px-4 md:px-12 bg-cover bg-center"
       style={{
         backgroundImage: "url('/images/background-massages.jpg')",
         backgroundRepeat: "no-repeat",
