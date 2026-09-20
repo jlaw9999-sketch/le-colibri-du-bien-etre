@@ -159,7 +159,7 @@ export default function HomePage() {
           <h2 className="text-3xl font-semibold mb-6">Offrez-vous un moment pour vous</h2>
 
           <p className="text-lg mb-8">
-            Découvrez les différents bonheurs que nous vous vous proposons et laissez-vous guider
+            Découvrez les différents bonheurs que nous vous proposons et laissez-vous guider
             vers le soin qui vous ressemble.
           </p>
 
