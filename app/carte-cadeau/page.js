@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Sparkles, Gift, Heart, Snowflake } from "lucide-react";
 
 export default function CarteCadeauPage() {
-  const [theme, setTheme] = useState("plaisir"); // 'plaisir' ou 'fetes'
+  const [theme, setTheme] = useState("plaisir");
   const [formData, setFormData] = useState({
     beneficiaire: "",
     offertPar: "",
@@ -29,9 +29,8 @@ export default function CarteCadeauPage() {
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-        {/* --- COLONNE GAUCHE : FORMULAIRE & CHOIX DU THÈME --- */}
+        {/* --- COLONNE GAUCHE : FORMULAIRE --- */}
         <div className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg border border-amber-100 space-y-6">
-          {/* Choix de l'illustration */}
           <div>
             <label className="block text-sm font-semibold text-amber-900 mb-3">
               1. Choisissez l'illustration de la carte :
@@ -65,7 +64,6 @@ export default function CarteCadeauPage() {
             </div>
           </div>
 
-          {/* Saisie des informations */}
           <div className="space-y-4">
             <label className="block text-sm font-semibold text-amber-900">
               2. Personnalisez votre carte :
@@ -164,7 +162,7 @@ export default function CarteCadeauPage() {
           </div>
         </div>
 
-        {/* --- COLONNE DROITE : PRÉVISUALISATION TEMPS RÉEL --- */}
+        {/* --- COLONNE DROITE : APERÇU NET & LUMINEUX --- */}
         <div className="sticky top-32 space-y-4">
           <p className="text-center font-medium text-amber-900 text-sm flex items-center justify-center gap-1.5">
             <Sparkles size={16} className="text-amber-600" /> Aperçu en temps réel
@@ -175,18 +173,25 @@ export default function CarteCadeauPage() {
             initial={{ opacity: 0.8, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
+            style={{
+              backgroundImage: `url(${
+                theme === "plaisir"
+                  ? "/images/carte-zen-bg.jpg"
+                  : "/images/carte-fetes-bg.jpg"
+              })`,
+            }}
             className={`relative w-full aspect-[1.7/1] rounded-3xl p-6 shadow-2xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
               theme === "plaisir"
-                ? "border-amber-300/80 bg-[url('/images/carte-zen-bg.jpeg')] text-amber-950"
-                : "border-amber-400/50 bg-[url('/images/carte-fetes-bg.png')] text-amber-50 shadow-amber-950/20"
+                ? "border-amber-300/80 text-amber-950"
+                : "border-amber-300/60 text-white shadow-amber-950/30"
             }`}
           >
-            {/* Voile d'ombrage léger pour garantir la lisibilité des textes */}
+            {/* Voile très léger pour conserver 100% de la clarté du fond */}
             <div
               className={`absolute inset-0 pointer-events-none transition-colors ${
                 theme === "plaisir"
-                  ? "bg-amber-50/60 backdrop-blur-[1px]"
-                  : "bg-amber-950/70 backdrop-blur-[1px]"
+                  ? "bg-amber-50/20"
+                  : "bg-black/25"
               }`}
             />
 
@@ -203,15 +208,15 @@ export default function CarteCadeauPage() {
                 </div>
                 <div>
                   <h3
-                    className={`text-base md:text-lg font-bold tracking-wide leading-tight ${
-                      theme === "plaisir" ? "text-amber-900" : "text-amber-200"
+                    className={`text-base md:text-lg font-bold tracking-wide leading-tight drop-shadow-sm ${
+                      theme === "plaisir" ? "text-amber-950" : "text-amber-100"
                     }`}
                   >
                     Le Colibri du Bien-Être
                   </h3>
                   <p
                     className={`text-xs italic ${
-                      theme === "plaisir" ? "text-amber-800" : "text-amber-300/80"
+                      theme === "plaisir" ? "text-amber-900" : "text-amber-200"
                     }`}
                   >
                     Soin & Sérénité
@@ -222,8 +227,8 @@ export default function CarteCadeauPage() {
               <div
                 className={`text-[11px] font-semibold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1.5 border ${
                   theme === "plaisir"
-                    ? "bg-amber-800/90 text-amber-50 border-amber-600/40"
-                    : "bg-amber-400/20 text-amber-200 border-amber-300/30"
+                    ? "bg-amber-900/90 text-amber-50 border-amber-600/40"
+                    : "bg-amber-500/80 text-amber-950 border-amber-300/60 shadow-sm"
                 }`}
               >
                 {theme === "fetes" ? <Snowflake size={12} /> : <Gift size={12} />}
@@ -231,13 +236,13 @@ export default function CarteCadeauPage() {
               </div>
             </div>
 
-            {/* Corps : Soin & Prénoms */}
+            {/* Corps : Soin & Prénoms avec boîtes semi-transparentes épurées */}
             <div className="relative z-10 my-auto py-1 space-y-2">
               <div
-                className={`p-3 rounded-xl border backdrop-blur-md ${
+                className={`p-3 rounded-xl border backdrop-blur-md shadow-sm ${
                   theme === "plaisir"
-                    ? "bg-white/80 border-amber-200/80"
-                    : "bg-amber-900/70 border-amber-700/60"
+                    ? "bg-white/85 border-amber-200/80 text-amber-950"
+                    : "bg-black/45 border-white/20 text-white"
                 }`}
               >
                 <p
@@ -254,15 +259,15 @@ export default function CarteCadeauPage() {
 
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div
-                  className={`p-2 rounded-lg border backdrop-blur-sm ${
+                  className={`p-2 rounded-lg border backdrop-blur-md shadow-sm ${
                     theme === "plaisir"
-                      ? "bg-white/60 border-amber-200/60"
-                      : "bg-amber-900/50 border-amber-700/50"
+                      ? "bg-white/75 border-amber-200/60 text-amber-950"
+                      : "bg-black/40 border-white/20 text-white"
                   }`}
                 >
                   <span
                     className={`block text-[10px] ${
-                      theme === "plaisir" ? "text-amber-800" : "text-amber-300/70"
+                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
                     }`}
                   >
                     Pour :
@@ -273,15 +278,15 @@ export default function CarteCadeauPage() {
                 </div>
 
                 <div
-                  className={`p-2 rounded-lg border backdrop-blur-sm ${
+                  className={`p-2 rounded-lg border backdrop-blur-md shadow-sm ${
                     theme === "plaisir"
-                      ? "bg-white/60 border-amber-200/60"
-                      : "bg-amber-900/50 border-amber-700/50"
+                      ? "bg-white/75 border-amber-200/60 text-amber-950"
+                      : "bg-black/40 border-white/20 text-white"
                   }`}
                 >
                   <span
                     className={`block text-[10px] ${
-                      theme === "plaisir" ? "text-amber-800" : "text-amber-300/70"
+                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
                     }`}
                   >
                     De la part de :
@@ -294,8 +299,8 @@ export default function CarteCadeauPage() {
 
               {formData.message && (
                 <p
-                  className={`text-xs italic text-center px-2 truncate ${
-                    theme === "plaisir" ? "text-amber-900/90" : "text-amber-200/90"
+                  className={`text-xs italic text-center px-2 truncate drop-shadow-sm ${
+                    theme === "plaisir" ? "text-amber-950 font-medium" : "text-amber-100"
                   }`}
                 >
                   « {formData.message} »
@@ -307,20 +312,20 @@ export default function CarteCadeauPage() {
             <div
               className={`relative z-10 pt-2 border-t flex justify-between items-end text-[10px] ${
                 theme === "plaisir"
-                  ? "border-amber-300/60 text-amber-900/90"
-                  : "border-amber-700/60 text-amber-200/90"
+                  ? "border-amber-400/60 text-amber-950 font-medium"
+                  : "border-amber-300/40 text-amber-100"
               }`}
             >
               <div>
                 <p className="font-medium">
                   Code : <span className="font-mono font-bold">CADEAU-2026-X7K</span>
                 </p>
-                <p className="text-[9px] opacity-80">Valable 1 an après achat</p>
+                <p className="text-[9px] opacity-90">Valable 1 an après achat</p>
               </div>
 
               <div className="text-right">
                 <p className="font-semibold">Sur RDV : 06 92 61 14 66</p>
-                <p className="text-[9px] opacity-80">lecolibridubienetre.fr</p>
+                <p className="text-[9px] opacity-90">lecolibridubienetre.fr</p>
               </div>
             </div>
           </motion.div>
