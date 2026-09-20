@@ -15,11 +15,12 @@ export default function MentionsLegales() {
         <section>
           <h2 className="text-xl font-semibold text-emerald-900 mb-2">1. Éditeur du site</h2>
           <p>
-            <strong>Nom / Entreprise :</strong> Le Colibri du Bien-Être<br />
-            <strong>Localisation :</strong> La Réunion (974)<br />
-            <strong>Téléphone :</strong> 06 92 61 14 66<br />
-            <strong>E-mail :</strong> lecolibridubienetre@gmail.com
-          </p>
+  <strong>Nom / Entreprise :</strong> Le Colibri du Bien-Être<br />
+  <strong>SIRET :</strong> 	93965812600015<br />
+  <strong>Localisation :</strong> La Réunion (974)<br />
+  <strong>Téléphone :</strong> 06 92 61 14 66<br />
+  <strong>E-mail :</strong> lecolibridubienetre@gmail.com
+</p>
         </section>
 
         <section>
