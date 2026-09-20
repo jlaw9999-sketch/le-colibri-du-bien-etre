@@ -82,9 +82,20 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* --- COPYRIGHT --- */}
-      <div className="text-center py-6 border-t border-amber-200 text-sm text-gray-600">
-        © {new Date().getFullYear()} Le Colibri du Bien-Être — Créé avec douceur et lumière 🌸
+      {/* --- COPYRIGHT & MENTIONS LÉGALES --- */}
+      <div className="text-center py-6 border-t border-amber-200 text-sm text-gray-600 space-y-2">
+        <p>
+          © {new Date().getFullYear()} Le Colibri du Bien-Être — Créé avec douceur et lumière 🌸
+        </p>
+        <div className="flex justify-center items-center gap-3 text-xs">
+          <Link href="/mentions-legales" className="hover:text-amber-800 underline">
+            Mentions Légales
+          </Link>
+          <span>•</span>
+          <Link href="/politique-confidentialite" className="hover:text-amber-800 underline">
+            Politique de Confidentialité
+          </Link>
+        </div>
       </div>
     </footer>
   );
