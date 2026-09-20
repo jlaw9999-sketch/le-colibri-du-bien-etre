@@ -177,8 +177,8 @@ export default function CarteCadeauPage() {
             transition={{ duration: 0.4 }}
             className={`relative w-full aspect-[1.7/1] rounded-3xl p-6 shadow-2xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
               theme === "plaisir"
-                ? "border-amber-300/80 bg-[url('/images/carte-zen-bg.jpg')] text-amber-950"
-                : "border-amber-400/50 bg-[url('/images/carte-fetes-bg.jpg')] text-amber-50 shadow-amber-950/20"
+                ? "border-amber-300/80 bg-[url('/images/carte-zen-bg.jpeg')] text-amber-950"
+                : "border-amber-400/50 bg-[url('/images/carte-fetes-bg.png')] text-amber-50 shadow-amber-950/20"
             }`}
           >
             {/* Voile d'ombrage léger pour garantir la lisibilité des textes */}
