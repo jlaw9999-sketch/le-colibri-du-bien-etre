@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Gift } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
@@ -26,10 +26,14 @@ export default function Navbar() {
         </Link>
 
         {/* --- MENU DESKTOP --- */}
-        <nav className="hidden md:flex gap-6 text-gray-700 font-medium">
+        <nav className="hidden md:flex items-center gap-6 text-gray-700 font-medium">
           <Link href="/" className="hover:text-amber-700 transition">Accueil</Link>
           <Link href="/qui-suis-je" className="hover:text-amber-700 transition">Qui suis-je</Link>
           <Link href="/prestations" className="hover:text-amber-700 transition">Prestations</Link>
+          <Link href="/carte-cadeau" className="flex items-center gap-1.5 text-amber-700 hover:text-amber-900 font-semibold transition bg-amber-100/60 px-3 py-1.5 rounded-full border border-amber-200">
+            <Gift size={18} className="text-amber-700" />
+            <span>Carte Cadeau</span>
+          </Link>
           <Link href="/reservation" className="hover:text-amber-700 transition">Réservation</Link>
           <Link href="/contact" className="hover:text-amber-700 transition">Contact</Link>
         </nav>
@@ -52,12 +56,20 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/95 backdrop-blur-md shadow-lg absolute top-full left-0 w-full"
+            className="md:hidden bg-white/95 backdrop-blur-md shadow-lg absolute top-full left-0 w-full border-t border-amber-100"
           >
             <div className="flex flex-col items-center py-5 space-y-4 text-amber-800 font-medium text-lg">
               <Link href="/" onClick={() => setIsOpen(false)}>Accueil</Link>
               <Link href="/qui-suis-je" onClick={() => setIsOpen(false)}>Qui suis-je</Link>
               <Link href="/prestations" onClick={() => setIsOpen(false)}>Prestations</Link>
+              <Link 
+                href="/carte-cadeau" 
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2 bg-amber-700 text-white px-5 py-2 rounded-full font-semibold shadow-sm"
+              >
+                <Gift size={20} />
+                <span>Carte Cadeau</span>
+              </Link>
               <Link href="/reservation" onClick={() => setIsOpen(false)}>Réservation</Link>
               <Link href="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
             </div>
