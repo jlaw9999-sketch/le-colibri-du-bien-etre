@@ -176,8 +176,8 @@ export default function CarteCadeauPage() {
             style={{
               backgroundImage: `url(${
                 theme === "plaisir"
-                  ? "/images/carte-zen-bg.jpg"
-                  : "/images/carte-fetes-bg.jpg"
+                  ? "/images/carte-zen-bg.jpeg"
+                  : "/images/carte-fetes-bg.png"
               })`,
             }}
             className={`relative w-full aspect-[1.7/1] rounded-3xl p-6 shadow-2xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
