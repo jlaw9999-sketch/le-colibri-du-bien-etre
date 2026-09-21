@@ -21,7 +21,9 @@ export default function CarteCadeauPage() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const genererPDF = async () => {
@@ -36,8 +38,8 @@ export default function CarteCadeauPage() {
       const element = carteRef.current;
       const clone = element.cloneNode(true);
 
-      const allClonedElements = clone.querySelectorAll("*");
-      allClonedElements.forEach((el) => {
+      const elementsToClean = clone.querySelectorAll("*");
+      elementsToClean.forEach((el) => {
         el.style.boxShadow = "none";
         el.style.textShadow = "none";
         el.style.filter = "none";
@@ -81,10 +83,11 @@ export default function CarteCadeauPage() {
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
+      const name = formData.beneficiaire ? formData.beneficiaire : "Client";
+      pdf.save("Carte-Cadeau-" + name + ".pdf");
     } catch (error) {
-      console.error("Erreur génération PDF :", error);
-      alert("Une erreur est survenue lors de la création du PDF : " + error.message);
+      console.error(error);
+      alert("Erreur lors de la création du PDF.");
     } finally {
       setLoadingPdf(false);
     }
