@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "tailwind:init": "tailwindcss init -p",
-    "tailwind:build": "tailwindcss -i ./styles/globals.css -o ./public/output.css --watch",
-    "dev": "set NEXT_FORCE_WEBPACK=1 && next dev",
-    "build": "next build",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },
@@ -33,6 +31,5 @@
     "typescript": "^5"
   },
   "description": "Projet Next.js pour Le Colibri du Bien-Être",
-  "license": "ISC",
-  "type": "module"
+  "license": "ISC"
 }
