@@ -32,7 +32,6 @@ export default function CarteCadeauPage() {
     setLoadingPdf(true);
 
     try {
-      // Importations dynamiques pour éviter tout blocage de parsing Turbopack / SSR
       const { default: jsPDF } = await import("jspdf");
       const { default: html2canvas } = await import("html2canvas");
 
@@ -88,7 +87,7 @@ export default function CarteCadeauPage() {
       pdf.save(`Carte-Cadeau-${nomClient}.pdf`);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de la génération du PDF : " + error.message);
+      alert("Erreur lors de la génération du PDF.");
     } finally {
       setLoadingPdf(false);
     }
