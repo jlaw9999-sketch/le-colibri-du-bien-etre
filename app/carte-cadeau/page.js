@@ -44,7 +44,7 @@ export default function CarteCadeauPage() {
 
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
       const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
-      
+
       const pdfWidth = 297;
       const pdfHeight = 210;
       const cardWidth = 230;
