@@ -13,22 +13,25 @@ export default function CarteCadeauPage() {
   const [formData, setFormData] = useState({
     beneficiaire: "",
     offertPar: "",
-    prestation: "Massage intuitif complet – Holistique, Énergétique & Magnétique",
-    message: "Un moment de pure détente rien que pour toi.",
+    prestation: "Massage intuitif complet - Holistique, Energetique & Magnetique",
+    message: "Un moment de pure detente rien que pour toi.",
     emailClient: "",
   });
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  }
 
-  const genererPDF = async () => {
+  async function genererPDF() {
     if (!carteRef.current) return;
     setLoadingPdf(true);
+
     try {
-      const { default: jsPDF } = await import("jspdf");
-      const { default: html2canvas } = await import("html2canvas");
+      const jsPDFModule = await import("jspdf");
+      const html2canvasModule = await import("html2canvas");
+      const jsPDF = jsPDFModule.default;
+      const html2canvas = html2canvasModule.default;
 
       const element = carteRef.current;
       const clone = element.cloneNode(true);
@@ -62,6 +65,6 @@ export default function CarteCadeauPage() {
     } finally {
       setLoadingPdf(false);
     }
-  };
+  }
 
   return (
