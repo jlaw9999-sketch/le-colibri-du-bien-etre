@@ -20,45 +20,47 @@ export default function CarteCadeauPage() {
   };
 
   return (
-    <section className="pt-28 pb-20 px-4 md:px-12 bg-amber-50/30 min-h-screen text-gray-800">
-      <div className="max-w-6xl mx-auto text-center mb-10">
-        <h1 className="text-4xl font-semibold text-amber-800 mb-3">Offrez une Carte Cadeau</h1>
-        <p className="text-gray-700 max-w-2xl mx-auto">
+    <section className="pt-28 pb-20 px-3 md:px-12 bg-amber-50/30 min-h-screen text-gray-800">
+      <div className="max-w-6xl mx-auto text-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-semibold text-amber-800 mb-2">
+          Offrez une Carte Cadeau
+        </h1>
+        <p className="text-sm md:text-base text-gray-700 max-w-2xl mx-auto">
           Personnalisez votre bon cadeau, choisissez l'illustration et recevez-le directement par e-mail après validation.
         </p>
       </div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* --- COLONNE GAUCHE : FORMULAIRE --- */}
-        <div className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg border border-amber-100 space-y-6">
+        <div className="bg-white/90 backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-lg border border-amber-100 space-y-5">
           <div>
             <label className="block text-sm font-semibold text-amber-900 mb-3">
               1. Choisissez l'illustration de la carte :
             </label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setTheme("plaisir")}
-                className={`p-4 rounded-xl border text-sm font-medium flex items-center justify-center gap-2 transition ${
+                className={`p-3 md:p-4 rounded-xl border text-xs md:text-sm font-medium flex items-center justify-center gap-2 transition ${
                   theme === "plaisir"
-                    ? "border-amber-600 bg-amber-100/70 text-amber-950 font-bold shadow-sm"
+                    ? "border-amber-600 bg-amber-100/80 text-amber-950 font-bold shadow-sm"
                     : "border-gray-200 hover:bg-amber-50 text-gray-600"
                 }`}
               >
-                <Heart size={18} className="text-amber-600" />
+                <Heart size={16} className="text-amber-600 shrink-0" />
                 <span>Plaisir d'offrir (Zen)</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setTheme("fetes")}
-                className={`p-4 rounded-xl border text-sm font-medium flex items-center justify-center gap-2 transition ${
+                className={`p-3 md:p-4 rounded-xl border text-xs md:text-sm font-medium flex items-center justify-center gap-2 transition ${
                   theme === "fetes"
                     ? "border-amber-700 bg-amber-900 text-amber-100 font-bold shadow-sm"
                     : "border-gray-200 hover:bg-amber-50 text-gray-600"
                 }`}
               >
-                <Snowflake size={18} className="text-amber-300" />
+                <Snowflake size={16} className="text-amber-300 shrink-0" />
                 <span>Fêtes de fin d'année</span>
               </button>
             </div>
@@ -154,7 +156,7 @@ export default function CarteCadeauPage() {
 
             <button
               type="button"
-              className="w-full mt-4 bg-amber-700 hover:bg-amber-800 text-white font-medium text-lg rounded-full py-3.5 transition shadow-md flex items-center justify-center gap-2"
+              className="w-full mt-2 bg-amber-700 hover:bg-amber-800 text-white font-medium text-base md:text-lg rounded-full py-3.5 transition shadow-md flex items-center justify-center gap-2"
             >
               <Gift size={20} />
               <span>Procéder au paiement en ligne</span>
@@ -162,8 +164,8 @@ export default function CarteCadeauPage() {
           </div>
         </div>
 
-        {/* --- COLONNE DROITE : APERÇU NET & LUMINEUX --- */}
-        <div className="sticky top-32 space-y-4">
+        {/* --- COLONNE DROITE : APERÇU --- */}
+        <div className="lg:sticky lg:top-32 space-y-3">
           <p className="text-center font-medium text-amber-900 text-sm flex items-center justify-center gap-1.5">
             <Sparkles size={16} className="text-amber-600" /> Aperçu en temps réel
           </p>
@@ -180,25 +182,23 @@ export default function CarteCadeauPage() {
                   : "/images/carte-fetes-bg.png"
               })`,
             }}
-            className={`relative w-full aspect-[1.7/1] rounded-3xl p-6 shadow-2xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
+            className={`relative w-full aspect-[1.58/1] rounded-2xl md:rounded-3xl p-3.5 sm:p-5 md:p-6 shadow-xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
               theme === "plaisir"
                 ? "border-amber-300/80 text-amber-950"
                 : "border-amber-300/60 text-white shadow-amber-950/30"
             }`}
           >
-            {/* Voile très léger pour conserver 100% de la clarté du fond */}
+            {/* Voile d'ambiance */}
             <div
               className={`absolute inset-0 pointer-events-none transition-colors ${
-                theme === "plaisir"
-                  ? "bg-amber-50/20"
-                  : "bg-black/25"
+                theme === "plaisir" ? "bg-amber-50/10" : "bg-black/20"
               }`}
             />
 
-            {/* En-tête : Logo & Badge */}
-            <div className="relative z-10 flex justify-between items-start gap-4">
-              <div className="flex items-center gap-3">
-                <div className="relative w-14 h-14 md:w-16 md:h-16 shrink-0 filter drop-shadow-md">
+            {/* En-tête : Logo & Type de Carte */}
+            <div className="relative z-10 flex justify-between items-start gap-2">
+              <div className="flex items-center gap-2 md:gap-3">
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 shrink-0 filter drop-shadow-md">
                   <Image
                     src="/images/logo-colibri.png"
                     alt="Le Colibri du Bien-Être"
@@ -208,15 +208,15 @@ export default function CarteCadeauPage() {
                 </div>
                 <div>
                   <h3
-                    className={`text-base md:text-lg font-bold tracking-wide leading-tight drop-shadow-sm ${
+                    className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-tight drop-shadow-md ${
                       theme === "plaisir" ? "text-amber-950" : "text-amber-100"
                     }`}
                   >
                     Le Colibri du Bien-Être
                   </h3>
                   <p
-                    className={`text-xs italic ${
-                      theme === "plaisir" ? "text-amber-900" : "text-amber-200"
+                    className={`text-[9px] sm:text-xs italic ${
+                      theme === "plaisir" ? "text-amber-900 font-medium" : "text-amber-200"
                     }`}
                   >
                     Soin & Sérénité
@@ -225,48 +225,48 @@ export default function CarteCadeauPage() {
               </div>
 
               <div
-                className={`text-[11px] font-semibold px-3 py-1 rounded-full backdrop-blur-md flex items-center gap-1.5 border ${
+                className={`text-[9px] sm:text-[10px] md:text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-md flex items-center gap-1 border shrink-0 ${
                   theme === "plaisir"
                     ? "bg-amber-900/90 text-amber-50 border-amber-600/40"
-                    : "bg-amber-500/80 text-amber-950 border-amber-300/60 shadow-sm"
+                    : "bg-amber-500/90 text-amber-950 border-amber-300/60 shadow-sm"
                 }`}
               >
-                {theme === "fetes" ? <Snowflake size={12} /> : <Gift size={12} />}
+                {theme === "fetes" ? <Snowflake size={11} /> : <Gift size={11} />}
                 <span>{theme === "fetes" ? "Bon des Fêtes" : "Carte Cadeau"}</span>
               </div>
             </div>
 
-            {/* Corps : Soin & Prénoms avec boîtes semi-transparentes épurées */}
-            <div className="relative z-10 my-auto py-1 space-y-2">
+            {/* Corps de Carte */}
+            <div className="relative z-10 my-auto space-y-1.5 sm:space-y-2">
               <div
-                className={`p-3 rounded-xl border backdrop-blur-md shadow-sm ${
+                className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl border backdrop-blur-md shadow-sm ${
                   theme === "plaisir"
-                    ? "bg-white/85 border-amber-200/80 text-amber-950"
-                    : "bg-black/45 border-white/20 text-white"
+                    ? "bg-white/90 border-amber-200/90 text-amber-950"
+                    : "bg-black/55 border-white/20 text-white"
                 }`}
               >
                 <p
-                  className={`text-[10px] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1 ${
+                  className={`text-[8px] sm:text-[10px] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1 ${
                     theme === "plaisir" ? "text-amber-800" : "text-amber-300"
                   }`}
                 >
-                  <Sparkles size={12} /> Soin Offert :
+                  <Sparkles size={11} /> Soin Offert :
                 </p>
-                <p className="text-sm md:text-base font-bold truncate">
+                <p className="text-[11px] sm:text-xs md:text-sm font-bold leading-tight">
                   {formData.prestation}
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
                 <div
-                  className={`p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
                     theme === "plaisir"
-                      ? "bg-white/75 border-amber-200/60 text-amber-950"
-                      : "bg-black/40 border-white/20 text-white"
+                      ? "bg-white/85 border-amber-200/70 text-amber-950"
+                      : "bg-black/50 border-white/20 text-white"
                   }`}
                 >
                   <span
-                    className={`block text-[10px] ${
+                    className={`block text-[8px] sm:text-[10px] font-semibold ${
                       theme === "plaisir" ? "text-amber-800" : "text-amber-300"
                     }`}
                   >
@@ -278,14 +278,14 @@ export default function CarteCadeauPage() {
                 </div>
 
                 <div
-                  className={`p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
                     theme === "plaisir"
-                      ? "bg-white/75 border-amber-200/60 text-amber-950"
-                      : "bg-black/40 border-white/20 text-white"
+                      ? "bg-white/85 border-amber-200/70 text-amber-950"
+                      : "bg-black/50 border-white/20 text-white"
                   }`}
                 >
                   <span
-                    className={`block text-[10px] ${
+                    className={`block text-[8px] sm:text-[10px] font-semibold ${
                       theme === "plaisir" ? "text-amber-800" : "text-amber-300"
                     }`}
                   >
@@ -299,8 +299,8 @@ export default function CarteCadeauPage() {
 
               {formData.message && (
                 <p
-                  className={`text-xs italic text-center px-2 truncate drop-shadow-sm ${
-                    theme === "plaisir" ? "text-amber-950 font-medium" : "text-amber-100"
+                  className={`text-[9px] sm:text-xs italic text-center px-1 truncate drop-shadow-sm ${
+                    theme === "plaisir" ? "text-amber-950 font-semibold" : "text-amber-100"
                   }`}
                 >
                   « {formData.message} »
@@ -308,24 +308,24 @@ export default function CarteCadeauPage() {
               )}
             </div>
 
-            {/* Pied de carte */}
+            {/* Pied de Carte */}
             <div
-              className={`relative z-10 pt-2 border-t flex justify-between items-end text-[10px] ${
+              className={`relative z-10 p-1.5 sm:p-2 rounded-lg border backdrop-blur-md flex justify-between items-end text-[8px] sm:text-[10px] md:text-xs font-semibold ${
                 theme === "plaisir"
-                  ? "border-amber-400/60 text-amber-950 font-medium"
-                  : "border-amber-300/40 text-amber-100"
+                  ? "bg-amber-950/90 text-amber-50 border-amber-800/80 shadow-md"
+                  : "bg-black/75 text-amber-100 border-amber-300/40 shadow-md"
               }`}
             >
               <div>
-                <p className="font-medium">
-                  Code : <span className="font-mono font-bold">CADEAU-2026-X7K</span>
+                <p>
+                  Code : <span className="font-mono font-bold text-amber-300">CADEAU-2026-X7K</span>
                 </p>
-                <p className="text-[9px] opacity-90">Valable 1 an après achat</p>
+                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">Valable 1 an après achat</p>
               </div>
 
               <div className="text-right">
-                <p className="font-semibold">Sur RDV : 06 92 61 14 66</p>
-                <p className="text-[9px] opacity-90">lecolibridubienetre.fr</p>
+                <p className="text-amber-200 font-bold">Sur RDV : 06 92 61 14 66</p>
+                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">lecolibridubienetre.fr</p>
               </div>
             </div>
           </motion.div>
