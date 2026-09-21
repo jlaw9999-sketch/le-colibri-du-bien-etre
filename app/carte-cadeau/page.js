@@ -17,12 +17,11 @@ export default function CarteCadeauPage() {
     offertPar: "",
     prestation: "Massage intuitif complet – Holistique, Énergétique & Magnétique",
     message: "Un moment de pure détente rien que pour toi.",
-    emailClient: "",
+    emailClient: ""
   });
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -58,7 +57,7 @@ export default function CarteCadeauPage() {
         useCORS: true,
         allowTaint: true,
         logging: false,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#ffffff"
       });
 
       document.body.removeChild(container);
@@ -68,7 +67,7 @@ export default function CarteCadeauPage() {
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: "a4",
+        format: "a4"
       });
 
       const pdfWidth = 297;
@@ -83,11 +82,11 @@ export default function CarteCadeauPage() {
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      const name = formData.beneficiaire ? formData.beneficiaire : "Client";
-      pdf.save("Carte-Cadeau-" + name + ".pdf");
+      const nomClient = formData.beneficiaire || "Client";
+      pdf.save(`Carte-Cadeau-${nomClient}.pdf`);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de la création du PDF.");
+      alert("Erreur lors de la génération du PDF.");
     } finally {
       setLoadingPdf(false);
     }
