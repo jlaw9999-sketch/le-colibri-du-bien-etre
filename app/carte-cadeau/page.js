@@ -24,7 +24,6 @@ export default function CarteCadeauPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Fonction pour générer et télécharger le PDF
   const genererPDF = async () => {
     if (!carteRef.current) {
       alert("L'élément de la carte cadeau n'a pas été trouvé.");
@@ -35,8 +34,6 @@ export default function CarteCadeauPage() {
 
     try {
       const element = carteRef.current;
-
-      // Cloner l'élément dans un conteneur hors-écran pour nettoyer les ombres CSS
       const clone = element.cloneNode(true);
 
       const allClonedElements = clone.querySelectorAll("*");
@@ -54,7 +51,6 @@ export default function CarteCadeauPage() {
       container.appendChild(clone);
       document.body.appendChild(container);
 
-      // Capture depuis l'élément nettoyé
       const canvas = await html2canvas(clone, {
         scale: 2,
         useCORS: true,
@@ -67,7 +63,6 @@ export default function CarteCadeauPage() {
 
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
-      // Création du document PDF (Format A4 Paysage)
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
