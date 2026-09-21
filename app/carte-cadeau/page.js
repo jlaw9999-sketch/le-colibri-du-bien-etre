@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Sparkles, Gift, Heart, Snowflake } from "lucide-react";
+import { Sparkles, Gift, Heart, Snowflake, Download } from "lucide-react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function CarteCadeauPage() {
   const [theme, setTheme] = useState("plaisir");
+  const [loadingPdf, setLoadingPdf] = useState(false);
+  const carteRef = useRef(null);
+
   const [formData, setFormData] = useState({
     beneficiaire: "",
     offertPar: "",
@@ -19,6 +24,55 @@ export default function CarteCadeauPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Fonction pour générer et télécharger le vrai PDF
+  const genererPDF = async () => {
+    if (!carteRef.current) return;
+    setLoadingPdf(true);
+
+    try {
+      const element = carteRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 3, // Haute résolution
+        useCORS: true, // Autorise les images locales/externes
+        logging: false,
+      });
+
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+      // Création du document PDF (A4 Paysage)
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+      });
+
+      // Dimensions A4 paysage : 297mm x 210mm
+      const pdfWidth = 297;
+      const pdfHeight = 210;
+
+      // Taille souhaitée pour la carte centrée dans le PDF (ex: 200mm de large)
+      const cardWidth = 220;
+      const cardHeight = (canvas.height * cardWidth) / canvas.width;
+
+      const x = (pdfWidth - cardWidth) / 2;
+      const y = (pdfHeight - cardHeight) / 2;
+
+      // Fond élégant pour le document A4
+      pdf.setFillColor(253, 251, 247); // Teinte ambrée très claire
+      pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
+
+      // Insertion de l'image de la carte
+      pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
+
+      // Téléchargement direct du PDF
+      pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
+    } catch (error) {
+      console.error("Erreur lors de la génération du PDF :", error);
+    } finally {
+      setLoadingPdf(false);
+    }
+  };
+
   return (
     <section className="pt-28 pb-20 px-3 md:px-12 bg-amber-50/30 min-h-screen text-gray-800">
       <div className="max-w-6xl mx-auto text-center mb-8">
@@ -26,7 +80,7 @@ export default function CarteCadeauPage() {
           Offrez une Carte Cadeau
         </h1>
         <p className="text-sm md:text-base text-gray-700 max-w-2xl mx-auto">
-          Personnalisez votre bon cadeau, choisissez l'illustration et recevez-le directement par e-mail après validation.
+          Personnalisez votre bon cadeau, choisissez l'illustration et téléchargez un aperçu PDF.
         </p>
       </div>
 
@@ -154,181 +208,198 @@ export default function CarteCadeauPage() {
               />
             </div>
 
-            <button
-              type="button"
-              className="w-full mt-2 bg-amber-700 hover:bg-amber-800 text-white font-medium text-base md:text-lg rounded-full py-3.5 transition shadow-md flex items-center justify-center gap-2"
-            >
-              <Gift size={20} />
-              <span>Procéder au paiement en ligne</span>
-            </button>
+            <div className="pt-2 space-y-3">
+              {/* Bouton pour tester et télécharger le PDF réel */}
+              <button
+                type="button"
+                onClick={genererPDF}
+                disabled={loadingPdf}
+                className="w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-semibold text-sm rounded-full py-3 transition shadow-sm flex items-center justify-center gap-2"
+              >
+                <Download size={18} />
+                <span>{loadingPdf ? "Génération du PDF..." : "Télécharger un aperçu PDF"}</span>
+              </button>
+
+              {/* Bouton de paiement */}
+              <button
+                type="button"
+                className="w-full bg-amber-700 hover:bg-amber-800 text-white font-medium text-base md:text-lg rounded-full py-3.5 transition shadow-md flex items-center justify-center gap-2"
+              >
+                <Gift size={20} />
+                <span>Procéder au paiement en ligne</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* --- COLONNE DROITE : APERÇU --- */}
+        {/* --- COLONNE DROITE : APERÇU ET CIBLE DU PDF --- */}
         <div className="lg:sticky lg:top-32 space-y-3">
           <p className="text-center font-medium text-amber-900 text-sm flex items-center justify-center gap-1.5">
             <Sparkles size={16} className="text-amber-600" /> Aperçu en temps réel
           </p>
 
-          <motion.div
-            key={theme}
-            initial={{ opacity: 0.8, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              backgroundImage: `url(${
-                theme === "plaisir"
-                  ? "/images/carte-zen-bg.jpeg"
-                  : "/images/carte-fetes-bg.png"
-              })`,
-            }}
-            className={`relative w-full aspect-[1.58/1] rounded-2xl md:rounded-3xl p-3.5 sm:p-5 md:p-6 shadow-xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
-              theme === "plaisir"
-                ? "border-amber-300/80 text-amber-950"
-                : "border-amber-300/60 text-white shadow-amber-950/30"
-            }`}
-          >
-            {/* Voile d'ambiance */}
-            <div
-              className={`absolute inset-0 pointer-events-none transition-colors ${
-                theme === "plaisir" ? "bg-amber-50/10" : "bg-black/20"
-              }`}
-            />
-
-            {/* En-tête : Logo & Type de Carte */}
-            <div className="relative z-10 flex justify-between items-start gap-2">
-              <div className="flex items-center gap-2 md:gap-3">
-                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 shrink-0 filter drop-shadow-md">
-                  <Image
-                    src="/images/logo-colibri.png"
-                    alt="Le Colibri du Bien-Être"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <h3
-                    className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-tight drop-shadow-md ${
-                      theme === "plaisir" ? "text-amber-950" : "text-amber-100"
-                    }`}
-                  >
-                    Le Colibri du Bien-Être
-                  </h3>
-                  <p
-                    className={`text-[9px] sm:text-xs italic ${
-                      theme === "plaisir" ? "text-amber-900 font-medium" : "text-amber-200"
-                    }`}
-                  >
-                    Soin & Sérénité
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`text-[9px] sm:text-[10px] md:text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-md flex items-center gap-1 border shrink-0 ${
+          {/* Div ciblée par useRef pour la capture PDF */}
+          <div ref={carteRef} className="w-full">
+            <motion.div
+              key={theme}
+              initial={{ opacity: 0.8, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              style={{
+                backgroundImage: `url(${
                   theme === "plaisir"
-                    ? "bg-amber-900/90 text-amber-50 border-amber-600/40"
-                    : "bg-amber-500/90 text-amber-950 border-amber-300/60 shadow-sm"
-                }`}
-              >
-                {theme === "fetes" ? <Snowflake size={11} /> : <Gift size={11} />}
-                <span>{theme === "fetes" ? "Bon des Fêtes" : "Carte Cadeau"}</span>
-              </div>
-            </div>
-
-            {/* Corps de Carte */}
-            <div className="relative z-10 my-auto space-y-1.5 sm:space-y-2">
-              <div
-                className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl border backdrop-blur-md shadow-sm ${
-                  theme === "plaisir"
-                    ? "bg-white/90 border-amber-200/90 text-amber-950"
-                    : "bg-black/55 border-white/20 text-white"
-                }`}
-              >
-                <p
-                  className={`text-[8px] sm:text-[10px] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1 ${
-                    theme === "plaisir" ? "text-amber-800" : "text-amber-300"
-                  }`}
-                >
-                  <Sparkles size={11} /> Soin Offert :
-                </p>
-                <p className="text-[11px] sm:text-xs md:text-sm font-bold leading-tight">
-                  {formData.prestation}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
-                <div
-                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
-                    theme === "plaisir"
-                      ? "bg-white/85 border-amber-200/70 text-amber-950"
-                      : "bg-black/50 border-white/20 text-white"
-                  }`}
-                >
-                  <span
-                    className={`block text-[8px] sm:text-[10px] font-semibold ${
-                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
-                    }`}
-                  >
-                    Pour :
-                  </span>
-                  <span className="font-semibold truncate block">
-                    {formData.beneficiaire || "Prénom Nom"}
-                  </span>
-                </div>
-
-                <div
-                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
-                    theme === "plaisir"
-                      ? "bg-white/85 border-amber-200/70 text-amber-950"
-                      : "bg-black/50 border-white/20 text-white"
-                  }`}
-                >
-                  <span
-                    className={`block text-[8px] sm:text-[10px] font-semibold ${
-                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
-                    }`}
-                  >
-                    De la part de :
-                  </span>
-                  <span className="font-semibold truncate block">
-                    {formData.offertPar || "Prénom Nom"}
-                  </span>
-                </div>
-              </div>
-
-              {formData.message && (
-                <p
-                  className={`text-[9px] sm:text-xs italic text-center px-1 truncate drop-shadow-sm ${
-                    theme === "plaisir" ? "text-amber-950 font-semibold" : "text-amber-100"
-                  }`}
-                >
-                  « {formData.message} »
-                </p>
-              )}
-            </div>
-
-            {/* Pied de Carte */}
-            <div
-              className={`relative z-10 p-1.5 sm:p-2 rounded-lg border backdrop-blur-md flex justify-between items-end text-[8px] sm:text-[10px] md:text-xs font-semibold ${
+                    ? "/images/carte-zen-bg.jpeg"
+                    : "/images/carte-fetes-bg.png"
+                })`,
+              }}
+              className={`relative w-full aspect-[1.58/1] rounded-2xl md:rounded-3xl p-3.5 sm:p-5 md:p-6 shadow-xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
                 theme === "plaisir"
-                  ? "bg-amber-950/90 text-amber-50 border-amber-800/80 shadow-md"
-                  : "bg-black/75 text-amber-100 border-amber-300/40 shadow-md"
+                  ? "border-amber-300/80 text-amber-950"
+                  : "border-amber-300/60 text-white shadow-amber-950/30"
               }`}
             >
-              <div>
-                <p>
-                  Code : <span className="font-mono font-bold text-amber-300">CADEAU-2026-X7K</span>
-                </p>
-                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">Valable 1 an après achat</p>
+              {/* Voile d'ambiance */}
+              <div
+                className={`absolute inset-0 pointer-events-none transition-colors ${
+                  theme === "plaisir" ? "bg-amber-50/10" : "bg-black/20"
+                }`}
+              />
+
+              {/* En-tête : Logo & Type de Carte */}
+              <div className="relative z-10 flex justify-between items-start gap-2">
+                <div className="flex items-center gap-2 md:gap-3">
+                  <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 shrink-0 filter drop-shadow-md">
+                    <Image
+                      src="/images/logo-colibri.png"
+                      alt="Le Colibri du Bien-Être"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <h3
+                      className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-tight drop-shadow-md ${
+                        theme === "plaisir" ? "text-amber-950" : "text-amber-100"
+                      }`}
+                    >
+                      Le Colibri du Bien-Être
+                    </h3>
+                    <p
+                      className={`text-[9px] sm:text-xs italic ${
+                        theme === "plaisir" ? "text-amber-900 font-medium" : "text-amber-200"
+                      }`}
+                    >
+                      Soin & Sérénité
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  className={`text-[9px] sm:text-[10px] md:text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-md flex items-center gap-1 border shrink-0 ${
+                    theme === "plaisir"
+                      ? "bg-amber-900/90 text-amber-50 border-amber-600/40"
+                      : "bg-amber-500/90 text-amber-950 border-amber-300/60 shadow-sm"
+                  }`}
+                >
+                  {theme === "fetes" ? <Snowflake size={11} /> : <Gift size={11} />}
+                  <span>{theme === "fetes" ? "Bon des Fêtes" : "Carte Cadeau"}</span>
+                </div>
               </div>
 
-              <div className="text-right">
-                <p className="text-amber-200 font-bold">Sur RDV : 06 92 61 14 66</p>
-                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">lecolibridubienetre.fr</p>
+              {/* Corps de Carte */}
+              <div className="relative z-10 my-auto space-y-1.5 sm:space-y-2">
+                <div
+                  className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl border backdrop-blur-md shadow-sm ${
+                    theme === "plaisir"
+                      ? "bg-white/90 border-amber-200/90 text-amber-950"
+                      : "bg-black/55 border-white/20 text-white"
+                  }`}
+                >
+                  <p
+                    className={`text-[8px] sm:text-[10px] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1 ${
+                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                    }`}
+                  >
+                    <Sparkles size={11} /> Soin Offert :
+                  </p>
+                  <p className="text-[11px] sm:text-xs md:text-sm font-bold leading-tight">
+                    {formData.prestation}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                  <div
+                    className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                      theme === "plaisir"
+                        ? "bg-white/85 border-amber-200/70 text-amber-950"
+                        : "bg-black/50 border-white/20 text-white"
+                    }`}
+                  >
+                    <span
+                      className={`block text-[8px] sm:text-[10px] font-semibold ${
+                        theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                      }`}
+                    >
+                      Pour :
+                    </span>
+                    <span className="font-semibold truncate block">
+                      {formData.beneficiaire || "Prénom Nom"}
+                    </span>
+                  </div>
+
+                  <div
+                    className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                      theme === "plaisir"
+                        ? "bg-white/85 border-amber-200/70 text-amber-950"
+                        : "bg-black/50 border-white/20 text-white"
+                    }`}
+                  >
+                    <span
+                      className={`block text-[8px] sm:text-[10px] font-semibold ${
+                        theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                      }`}
+                    >
+                      De la part de :
+                    </span>
+                    <span className="font-semibold truncate block">
+                      {formData.offertPar || "Prénom Nom"}
+                    </span>
+                  </div>
+                </div>
+
+                {formData.message && (
+                  <p
+                    className={`text-[9px] sm:text-xs italic text-center px-1 truncate drop-shadow-sm ${
+                      theme === "plaisir" ? "text-amber-950 font-semibold" : "text-amber-100"
+                    }`}
+                  >
+                    « {formData.message} »
+                  </p>
+                )}
               </div>
-            </div>
-          </motion.div>
+
+              {/* Pied de Carte */}
+              <div
+                className={`relative z-10 p-1.5 sm:p-2 rounded-lg border backdrop-blur-md flex justify-between items-end text-[8px] sm:text-[10px] md:text-xs font-semibold ${
+                  theme === "plaisir"
+                    ? "bg-amber-950/90 text-amber-50 border-amber-800/80 shadow-md"
+                    : "bg-black/75 text-amber-100 border-amber-300/40 shadow-md"
+                }`}
+              >
+                <div>
+                  <p>
+                    Code : <span className="font-mono font-bold text-amber-300">CADEAU-2026-X7K</span>
+                  </p>
+                  <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">Valable 1 an après achat</p>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-amber-200 font-bold">Sur RDV : 06 92 61 14 66</p>
+                  <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">lecolibridubienetre.fr</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
