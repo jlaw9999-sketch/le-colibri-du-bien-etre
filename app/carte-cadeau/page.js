@@ -38,30 +38,54 @@ export default function CarteCadeauPage() {
       const element = carteRef.current;
 
       // Capture du composant avec html2canvas en convertissant les couleurs incompatibles
+     // Fonction pour générer et télécharger le vrai PDF (bypass des fonctions de couleurs CSS modernes)
+  const genererPDF = async () => {
+    if (!carteRef.current) {
+      alert("L'élément de me la carte cadeau n'a pas été trouvé.");
+      return;
+    }
+
+    setLoadingPdf(true);
+
+    try {
+      const element = carteRef.current;
+
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
         logging: false,
+        backgroundColor: null,
         onclone: (clonedDoc) => {
-          // Parcourir tous les éléments clônés et nettoyer/convertir les styles CSS complexes
+          // Force la conversion de TOUS les styles de TOUS les éléments en RGB
           const allElements = clonedDoc.querySelectorAll("*");
           allElements.forEach((el) => {
-            const style = window.getComputedStyle(el);
+            const computed = window.getComputedStyle(el);
             
-            // Forcer les couleurs calculées standard (rgb/rgba)
-            if (style.color) el.style.color = style.color;
-            if (style.backgroundColor && style.backgroundColor !== "rgba(0, 0, 0, 0)") {
-              el.style.backgroundColor = style.backgroundColor;
-            }
-            if (style.borderColor) el.style.borderColor = style.borderColor;
+            // Si la couleur contient "lab" ou "oklch", on la force en RGB calculé
+            ["color", "backgroundColor", "borderColor", "outlineColor"].forEach((prop) => {
+              const val = computed[prop];
+              if (val && (val.includes("lab") || val.includes("oklch"))) {
+                // Création d'un mini canvas invisible pour traduire la couleur en RGBA exact
+                const dummyCanvas = document.createElement("canvas");
+                const ctx = dummyCanvas.getContext("2d");
+                if (ctx) {
+                  ctx.fillStyle = val;
+                  el.style[prop] = ctx.fillStyle;
+                }
+              } else if (val) {
+                el.style[prop] = val;
+              }
+            });
+
+            // Supprime les ombres complexes (box-shadow) générées en oklch/lab par Tailwind v4
+            el.style.boxShadow = "none";
           });
         },
       });
 
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
-      // Création du document PDF (Format A4 Paysage)
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
@@ -70,21 +94,16 @@ export default function CarteCadeauPage() {
 
       const pdfWidth = 297;
       const pdfHeight = 210;
-
       const cardWidth = 230;
       const cardHeight = (canvas.height * cardWidth) / canvas.width;
 
       const x = (pdfWidth - cardWidth) / 2;
       const y = (pdfHeight - cardHeight) / 2;
 
-      // Fond de page ambré très clair
       pdf.setFillColor(253, 251, 247);
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
-
-      // Ajout de l'image de la carte au centre du PDF
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      // Déclenchement du téléchargement
       pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
     } catch (error) {
       console.error("Erreur génération PDF :", error);
