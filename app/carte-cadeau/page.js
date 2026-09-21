@@ -25,7 +25,8 @@ export default function CarteCadeauPage() {
   };
 
   // Fonction pour générer et télécharger le vrai PDF
-const genererPDF = async () => {
+// Fonction pour générer et télécharger le vrai PDF
+  const genererPDF = async () => {
     if (!carteRef.current) {
       alert("L'élément de la carte cadeau n'a pas été trouvé.");
       return;
@@ -36,12 +37,26 @@ const genererPDF = async () => {
     try {
       const element = carteRef.current;
 
-      // Capture du composant avec html2canvas
+      // Capture du composant avec html2canvas en convertissant les couleurs incompatibles
       const canvas = await html2canvas(element, {
-        scale: 2, // Qualité suffisante pour PDF
-        useCORS: true, // Autorise le chargement des images
+        scale: 2,
+        useCORS: true,
         allowTaint: true,
-        logging: true, // Affiche les logs dans la console si besoin
+        logging: false,
+        onclone: (clonedDoc) => {
+          // Parcourir tous les éléments clônés et nettoyer/convertir les styles CSS complexes
+          const allElements = clonedDoc.querySelectorAll("*");
+          allElements.forEach((el) => {
+            const style = window.getComputedStyle(el);
+            
+            // Forcer les couleurs calculées standard (rgb/rgba)
+            if (style.color) el.style.color = style.color;
+            if (style.backgroundColor && style.backgroundColor !== "rgba(0, 0, 0, 0)") {
+              el.style.backgroundColor = style.backgroundColor;
+            }
+            if (style.borderColor) el.style.borderColor = style.borderColor;
+          });
+        },
       });
 
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
@@ -62,7 +77,7 @@ const genererPDF = async () => {
       const x = (pdfWidth - cardWidth) / 2;
       const y = (pdfHeight - cardHeight) / 2;
 
-      // Fond de page élégant
+      // Fond de page ambré très clair
       pdf.setFillColor(253, 251, 247);
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
 
