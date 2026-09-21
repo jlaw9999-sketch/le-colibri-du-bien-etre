@@ -4,8 +4,6 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Sparkles, Gift, Heart, Snowflake, Download } from "lucide-react";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 export default function CarteCadeauPage() {
   const [theme, setTheme] = useState("plaisir");
@@ -17,7 +15,7 @@ export default function CarteCadeauPage() {
     offertPar: "",
     prestation: "Massage intuitif complet – Holistique, Énergétique & Magnétique",
     message: "Un moment de pure détente rien que pour toi.",
-    emailClient: ""
+    emailClient: "",
   });
 
   const handleChange = (e) => {
@@ -34,6 +32,10 @@ export default function CarteCadeauPage() {
     setLoadingPdf(true);
 
     try {
+      // Importations dynamiques pour éviter tout blocage de parsing Turbopack / SSR
+      const { default: jsPDF } = await import("jspdf");
+      const { default: html2canvas } = await import("html2canvas");
+
       const element = carteRef.current;
       const clone = element.cloneNode(true);
 
@@ -57,7 +59,7 @@ export default function CarteCadeauPage() {
         useCORS: true,
         allowTaint: true,
         logging: false,
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
       });
 
       document.body.removeChild(container);
@@ -67,7 +69,7 @@ export default function CarteCadeauPage() {
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: "a4"
+        format: "a4",
       });
 
       const pdfWidth = 297;
@@ -86,7 +88,7 @@ export default function CarteCadeauPage() {
       pdf.save(`Carte-Cadeau-${nomClient}.pdf`);
     } catch (error) {
       console.error(error);
-      alert("Erreur lors de la génération du PDF.");
+      alert("Erreur lors de la génération du PDF : " + error.message);
     } finally {
       setLoadingPdf(false);
     }
