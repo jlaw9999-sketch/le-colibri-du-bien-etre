@@ -18,12 +18,12 @@ export default function CarteCadeauPage() {
     emailClient: "",
   });
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  }
 
-  const genererPDF = async () => {
+  async function genererPDF() {
     if (!carteRef.current) return;
     setLoadingPdf(true);
 
@@ -65,6 +65,6 @@ export default function CarteCadeauPage() {
     } finally {
       setLoadingPdf(false);
     }
-  };
+  }
 
   return (
