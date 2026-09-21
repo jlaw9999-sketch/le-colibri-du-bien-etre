@@ -24,13 +24,8 @@ export default function CarteCadeauPage() {
   };
 
   const genererPDF = async () => {
-    if (!carteRef.current) {
-      alert("L'élément de la carte cadeau n'a pas été trouvé.");
-      return;
-    }
-
+    if (!carteRef.current) return;
     setLoadingPdf(true);
-
     try {
       const { default: jsPDF } = await import("jspdf");
       const { default: html2canvas } = await import("html2canvas");
@@ -38,44 +33,22 @@ export default function CarteCadeauPage() {
       const element = carteRef.current;
       const clone = element.cloneNode(true);
 
-      const elementsToClean = clone.querySelectorAll("*");
-      elementsToClean.forEach((el) => {
-        el.style.boxShadow = "none";
-        el.style.textShadow = "none";
-        el.style.filter = "none";
-        el.style.backdropFilter = "none";
-      });
-
       const container = document.createElement("div");
       container.style.position = "absolute";
       container.style.left = "-9999px";
-      container.style.top = "-9999px";
       container.appendChild(clone);
       document.body.appendChild(container);
 
-      const canvas = await html2canvas(clone, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        backgroundColor: "#ffffff",
-      });
-
+      const canvas = await html2canvas(clone, { scale: 2, useCORS: true });
       document.body.removeChild(container);
 
       const imgData = canvas.toDataURL("image/jpeg", 0.95);
-
-      const pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "mm",
-        format: "a4",
-      });
-
+      const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+      
       const pdfWidth = 297;
       const pdfHeight = 210;
       const cardWidth = 230;
       const cardHeight = (canvas.height * cardWidth) / canvas.width;
-
       const x = (pdfWidth - cardWidth) / 2;
       const y = (pdfHeight - cardHeight) / 2;
 
@@ -83,11 +56,9 @@ export default function CarteCadeauPage() {
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      const nomClient = formData.beneficiaire || "Client";
-      pdf.save(`Carte-Cadeau-${nomClient}.pdf`);
-    } catch (error) {
-      console.error(error);
-      alert("Erreur lors de la génération du PDF.");
+      pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoadingPdf(false);
     }
