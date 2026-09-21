@@ -25,54 +25,59 @@ export default function CarteCadeauPage() {
   };
 
   // Fonction pour générer et télécharger le vrai PDF
-  const genererPDF = async () => {
-    if (!carteRef.current) return;
+const genererPDF = async () => {
+    if (!carteRef.current) {
+      alert("L'élément de la carte cadeau n'a pas été trouvé.");
+      return;
+    }
+
     setLoadingPdf(true);
 
     try {
       const element = carteRef.current;
+
+      // Capture du composant avec html2canvas
       const canvas = await html2canvas(element, {
-        scale: 3, // Haute résolution
-        useCORS: true, // Autorise les images locales/externes
-        logging: false,
+        scale: 2, // Qualité suffisante pour PDF
+        useCORS: true, // Autorise le chargement des images
+        allowTaint: true,
+        logging: true, // Affiche les logs dans la console si besoin
       });
 
-      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
 
-      // Création du document PDF (A4 Paysage)
+      // Création du document PDF (Format A4 Paysage)
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
         format: "a4",
       });
 
-      // Dimensions A4 paysage : 297mm x 210mm
       const pdfWidth = 297;
       const pdfHeight = 210;
 
-      // Taille souhaitée pour la carte centrée dans le PDF (ex: 200mm de large)
-      const cardWidth = 220;
+      const cardWidth = 230;
       const cardHeight = (canvas.height * cardWidth) / canvas.width;
 
       const x = (pdfWidth - cardWidth) / 2;
       const y = (pdfHeight - cardHeight) / 2;
 
-      // Fond élégant pour le document A4
-      pdf.setFillColor(253, 251, 247); // Teinte ambrée très claire
+      // Fond de page élégant
+      pdf.setFillColor(253, 251, 247);
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
 
-      // Insertion de l'image de la carte
+      // Ajout de l'image de la carte au centre du PDF
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      // Téléchargement direct du PDF
+      // Déclenchement du téléchargement
       pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
     } catch (error) {
-      console.error("Erreur lors de la génération du PDF :", error);
+      console.error("Erreur génération PDF :", error);
+      alert("Une erreur est survenue lors de la création du PDF : " + error.message);
     } finally {
       setLoadingPdf(false);
     }
   };
-
   return (
     <section className="pt-28 pb-20 px-3 md:px-12 bg-amber-50/30 min-h-screen text-gray-800">
       <div className="max-w-6xl mx-auto text-center mb-8">
