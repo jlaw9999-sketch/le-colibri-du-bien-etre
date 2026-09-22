@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Sparkles, Gift, Heart, Snowflake, Download } from "lucide-react";
+import { Sparkles, Gift, Download } from "lucide-react";
 
 export default function CarteCadeauPage() {
-  const [theme, setTheme] = useState("zen"); // "zen" ou "fetes"
+  const [theme, setTheme] = useState("zen");
   const [loadingPdf, setLoadingPdf] = useState(false);
   const carteRef = useRef(null);
 
@@ -16,12 +16,15 @@ export default function CarteCadeauPage() {
     emailClient: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = function(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData(function(prev) {
+      return Object.assign({}, prev, { [name]: value });
+    });
   };
 
-  const genererPDF = async () => {
+  const genererPDF = async function() {
     if (!carteRef.current) return;
     setLoadingPdf(true);
 
@@ -48,7 +51,7 @@ export default function CarteCadeauPage() {
       pdf.rect(0, 0, pdfWidth, pdfHeight, "F");
       pdf.addImage(imgData, "JPEG", x, y, cardWidth, cardHeight);
 
-      pdf.save(`Carte-Cadeau-${formData.beneficiaire || "Client"}.pdf`);
+      pdf.save("Carte-Cadeau.pdf");
     } catch (err) {
       console.error(err);
     } finally {
@@ -56,7 +59,6 @@ export default function CarteCadeauPage() {
     }
   };
 
-  // Sélection de l'arrière-plan selon le thème actif
   const bgImage = theme === "zen" ? "/carte-zen-bg.jpeg" : "/carte-fetes-bg.png";
 
   return (
