@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Gift, Heart, Snowflake } from "lucide-react";
+import { Sparkles, Gift, Snowflake } from "lucide-react";
 
 export default function CarteCadeauPage() {
   const [theme, setTheme] = useState("plaisir");
@@ -14,15 +14,19 @@ export default function CarteCadeauPage() {
     emailClient: "",
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = function(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormData(function(prev) {
+      return Object.assign({}, prev, { [name]: value });
+    });
   };
 
-  // Gestion des arrière-plan selon le thème
-  const getBgImage = () => {
-    if (theme === "zen") return "url(/carte-zen-bg.jpeg)";
-    if (theme === "fetes") return "url(/carte-fetes-bg.png)";
-    return "none"; // Pour le thème "plaisir" ou par défaut (utilise le dégradé)
-  };
+  const bgStyle = 
+    theme === "zen" 
+      ? { backgroundImage: "url('/carte-zen-bg.jpeg')" } 
+      : theme === "fetes" 
+      ? { backgroundImage: "url('/carte-fetes-bg.png')" } 
+      : {};
 
   return (
