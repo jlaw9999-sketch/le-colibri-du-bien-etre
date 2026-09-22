@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Gift, Snowflake } from "lucide-react";
+import { Sparkles, Gift, Snowflake, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function CarteCadeauPage() {
   const [theme, setTheme] = useState("plaisir");
@@ -15,7 +16,8 @@ export default function CarteCadeauPage() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const bgStyle = 
@@ -28,13 +30,21 @@ export default function CarteCadeauPage() {
   return (
     <main className="min-h-screen bg-[#fdfaf5] px-4 pt-28 pb-20 text-[#2d1f1f]">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-8">
-          <p className="mb-2 inline-flex items-center rounded-full border border-[#e7d6c6] bg-[#fff8f1] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a48]">
-            <Gift className="mr-2 h-4 w-4" /> Carte cadeau
-          </p>
-          <h1 className="text-3xl font-bold text-[#2d1f1f] md:text-4xl">
-            Créez une carte cadeau personnalisée
-          </h1>
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <Link
+              href="/prestations"
+              className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a48] transition hover:text-[#5d433d]"
+            >
+              <ArrowLeft className="h-4 w-4" /> Retour aux prestations
+            </Link>
+            <p className="mb-2 inline-flex items-center rounded-full border border-[#e7d6c6] bg-[#fff8f1] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a48]">
+              <Gift className="mr-2 h-4 w-4" /> Carte cadeau
+            </p>
+            <h1 className="text-3xl font-bold text-[#2d1f1f] md:text-4xl">
+              Créez une carte cadeau personnalisée
+            </h1>
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
@@ -116,7 +126,11 @@ export default function CarteCadeauPage() {
                   <button
                     type="button"
                     onClick={() => setTheme("plaisir")}
-                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${theme === "plaisir" ? "border-[#7a5a48] bg-[#7a5a48] text-white shadow-sm" : "border-[#ebddd2] bg-[#fffaf6] text-[#5d433d] hover:border-[#d4b6a4]"}`}
+                    className={
+                      theme === "plaisir"
+                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
+                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
+                    }
                   >
                     <Gift className="h-4 w-4" /> Plaisir d'offrir
                   </button>
@@ -124,7 +138,11 @@ export default function CarteCadeauPage() {
                   <button
                     type="button"
                     onClick={() => setTheme("zen")}
-                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${theme === "zen" ? "border-[#7a5a48] bg-[#7a5a48] text-white shadow-sm" : "border-[#ebddd2] bg-[#fffaf6] text-[#5d433d] hover:border-[#d4b6a4]"}`}
+                    className={
+                      theme === "zen"
+                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
+                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
+                    }
                   >
                     <Sparkles className="h-4 w-4" /> Ambiance Zen
                   </button>
@@ -132,9 +150,13 @@ export default function CarteCadeauPage() {
                   <button
                     type="button"
                     onClick={() => setTheme("fetes")}
-                    className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${theme === "fetes" ? "border-[#7a5a48] bg-[#7a5a48] text-white shadow-sm" : "border-[#ebddd2] bg-[#fffaf6] text-[#5d433d] hover:border-[#d4b6a4]"}`}
+                    className={
+                      theme === "fetes"
+                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
+                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
+                    }
                   >
-                    <Snowflake className="h-4 w-4" /> Fêtes
+                    <Snowflake className="h-4 w-4" /> Fêtes de fin d'année
                   </button>
                 </div>
               </div>
@@ -146,10 +168,16 @@ export default function CarteCadeauPage() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-[650px] rounded-[32px] border-2 border-[#e7d6c6] p-8 shadow-xl relative overflow-hidden flex flex-col justify-between bg-cover bg-center min-h-[420px]"
-              style={bgStyle}
+              className="w-full max-w-[650px] rounded-[32px] border-2 border-[#e7d6c6] p-8 shadow-xl relative overflow-hidden flex flex-col justify-between bg-cover bg-center"
+              style={Object.assign({ minHeight: "420px" }, bgStyle)}
             >
-              <div className={`absolute inset-0 pointer-events-none ${theme === "plaisir" ? "bg-gradient-to-br from-[#fffdfb] via-[#fff8f3] to-[#fef2e8]" : "bg-white/80 backdrop-blur-[1px]"}`} />
+              <div
+                className={
+                  theme === "plaisir"
+                    ? "absolute inset-0 bg-gradient-to-br from-[#fffdfb] via-[#fff8f3] to-[#fef2e8] pointer-events-none"
+                    : "absolute inset-0 bg-white/80 backdrop-blur-[1px] pointer-events-none"
+                }
+              />
 
               <div className="relative z-10 flex items-center justify-between border-b border-[#f0e2d7] pb-4">
                 <div className="flex items-center gap-2 text-[#7a5a48]">
