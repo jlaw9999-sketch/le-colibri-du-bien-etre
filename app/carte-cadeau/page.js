@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Gift, Snowflake, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
+import { Sparkles, Gift, Heart, Snowflake } from "lucide-react";
 
 export default function CarteCadeauPage() {
   const [theme, setTheme] = useState("plaisir");
@@ -16,215 +16,321 @@ export default function CarteCadeauPage() {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const bgStyle = 
-    theme === "zen" 
-      ? { backgroundImage: "url('/carte-zen-bg.jpeg')" } 
-      : theme === "fetes" 
-      ? { backgroundImage: "url('/carte-fetes-bg.png')" } 
-      : {};
-
   return (
-    <main className="min-h-screen bg-[#fdfaf5] px-4 pt-28 pb-20 text-[#2d1f1f]">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <section className="pt-28 pb-20 px-3 md:px-12 bg-amber-50/30 min-h-screen text-gray-800">
+      <div className="max-w-6xl mx-auto text-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-semibold text-amber-800 mb-2">
+          Offrez une Carte Cadeau
+        </h1>
+        <p className="text-sm md:text-base text-gray-700 max-w-2xl mx-auto">
+          Personnalisez votre bon cadeau, choisissez l'illustration et recevez-le directement par e-mail après validation.
+        </p>
+      </div>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* --- COLONNE GAUCHE : FORMULAIRE --- */}
+        <div className="bg-white/90 backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-lg border border-amber-100 space-y-5">
           <div>
-            <Link
-              href="/prestations"
-              className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a48] transition hover:text-[#5d433d]"
+            <label className="block text-sm font-semibold text-amber-900 mb-3">
+              1. Choisissez l'illustration de la carte :
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setTheme("plaisir")}
+                className={`p-3 md:p-4 rounded-xl border text-xs md:text-sm font-medium flex items-center justify-center gap-2 transition ${
+                  theme === "plaisir"
+                    ? "border-amber-600 bg-amber-100/80 text-amber-950 font-bold shadow-sm"
+                    : "border-gray-200 hover:bg-amber-50 text-gray-600"
+                }`}
+              >
+                <Heart size={16} className="text-amber-600 shrink-0" />
+                <span>Plaisir d'offrir (Zen)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setTheme("fetes")}
+                className={`p-3 md:p-4 rounded-xl border text-xs md:text-sm font-medium flex items-center justify-center gap-2 transition ${
+                  theme === "fetes"
+                    ? "border-amber-700 bg-amber-900 text-amber-100 font-bold shadow-sm"
+                    : "border-gray-200 hover:bg-amber-50 text-gray-600"
+                }`}
+              >
+                <Snowflake size={16} className="text-amber-300 shrink-0" />
+                <span>Fêtes de fin d'année</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <label className="block text-sm font-semibold text-amber-900">
+              2. Personnalisez votre carte :
+            </label>
+
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Choix du soin offert</label>
+              <select
+                name="prestation"
+                value={formData.prestation}
+                onChange={handleChange}
+                className="w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-400 bg-white"
+              >
+                <option value="Massage holistique">Massage holistique</option>
+                <option value="Massage intuitif complet – Holistique, Énergétique & Magnétique">
+                  Massage intuitif complet – Holistique, Énergétique & Magnétique
+                </option>
+                <option value="Soins énergétiques">Soins énergétiques</option>
+                <option value="Séance de relaxation">Séance de relaxation</option>
+                <option value="Massage assis AMMA">Massage assis AMMA</option>
+                <option value="Massage tête / pieds / mains">Massage tête / pieds / mains</option>
+                <option value="Power Feet">Power Feet</option>
+                <option value="Power Head">Power Head</option>
+                <option value="Massage sportif – préparation avant effort">
+                  Massage sportif – préparation avant effort
+                </option>
+                <option value="Massage récupération après l’effort">
+                  Massage récupération après l’effort
+                </option>
+                <option value="Massage profond avec points d’acupression">
+                  Massage profond avec points d’acupression
+                </option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">Pour (Prénom / Nom)</label>
+                <input
+                  type="text"
+                  name="beneficiaire"
+                  placeholder="Ex: Marie"
+                  value={formData.beneficiaire}
+                  onChange={handleChange}
+                  className="w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-400"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">De la part de</label>
+                <input
+                  type="text"
+                  name="offertPar"
+                  placeholder="Ex: Laurent & Sophie"
+                  value={formData.offertPar}
+                  onChange={handleChange}
+                  className="w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-400"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Message personnalisé</label>
+              <textarea
+                name="message"
+                placeholder="Ex: Un doux moment pour prendre soin de toi..."
+                value={formData.message}
+                onChange={handleChange}
+                maxLength={120}
+                className="w-full border border-amber-200 rounded-lg p-3 h-20 text-sm focus:ring-2 focus:ring-amber-400"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-600 mb-1">Votre e-mail (pour recevoir le bon)</label>
+              <input
+                type="email"
+                name="emailClient"
+                placeholder="votre.email@exemple.com"
+                value={formData.emailClient}
+                onChange={handleChange}
+                className="w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-400"
+                required
+              />
+            </div>
+
+            <button
+              type="button"
+              className="w-full mt-2 bg-amber-700 hover:bg-amber-800 text-white font-medium text-base md:text-lg rounded-full py-3.5 transition shadow-md flex items-center justify-center gap-2"
             >
-              <ArrowLeft className="h-4 w-4" /> Retour aux prestations
-            </Link>
-            <p className="mb-2 inline-flex items-center rounded-full border border-[#e7d6c6] bg-[#fff8f1] px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#7a5a48]">
-              <Gift className="mr-2 h-4 w-4" /> Carte cadeau
-            </p>
-            <h1 className="text-3xl font-bold text-[#2d1f1f] md:text-4xl">
-              Créez une carte cadeau personnalisée
-            </h1>
+              <Gift size={20} />
+              <span>Procéder au paiement en ligne</span>
+            </button>
           </div>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-          <section className="rounded-[32px] border border-[#f0e2d7] bg-white p-6 md:p-8 shadow-sm space-y-6">
-            <div className="flex items-center gap-3 border-b border-[#f5e6dc] pb-4">
-              <div className="rounded-full bg-[#fff2e8] p-2.5 text-[#7a5a48]">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">Personnalisez votre attention</h2>
-                <p className="text-xs text-[#8c6d5c]">Remplissez les informations pour composer le bon cadeau.</p>
-              </div>
-            </div>
+        {/* --- COLONNE DROITE : APERÇU --- */}
+        <div className="lg:sticky lg:top-32 space-y-3">
+          <p className="text-center font-medium text-amber-900 text-sm flex items-center justify-center gap-1.5">
+            <Sparkles size={16} className="text-amber-600" /> Aperçu en temps réel
+          </p>
 
-            <div className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-1 block text-sm font-medium text-[#5d433d]">Bénéficiaire</span>
-                  <input
-                    type="text"
-                    name="beneficiaire"
-                    value={formData.beneficiaire}
-                    onChange={handleChange}
-                    placeholder="Nom du bénéficiaire"
-                    className="w-full rounded-2xl border border-[#ebddd2] bg-[#fffdfb] px-3.5 py-3 text-sm outline-none transition focus:border-[#c5967e] focus:ring-2 focus:ring-[#f3d9ca]"
+          <motion.div
+            key={theme}
+            initial={{ opacity: 0.8, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            style={{
+              backgroundImage: `url(${
+                theme === "plaisir"
+                  ? "/images/carte-zen-bg.jpeg"
+                  : "/images/carte-fetes-bg.png"
+              })`,
+            }}
+            className={`relative w-full aspect-[1.58/1] rounded-2xl md:rounded-3xl p-3.5 sm:p-5 md:p-6 shadow-xl overflow-hidden border flex flex-col justify-between bg-cover bg-center transition-all ${
+              theme === "plaisir"
+                ? "border-amber-300/80 text-amber-950"
+                : "border-amber-300/60 text-white shadow-amber-950/30"
+            }`}
+          >
+            {/* Voile d'ambiance */}
+            <div
+              className={`absolute inset-0 pointer-events-none transition-colors ${
+                theme === "plaisir" ? "bg-amber-50/10" : "bg-black/20"
+              }`}
+            />
+
+            {/* En-tête : Logo & Type de Carte */}
+            <div className="relative z-10 flex justify-between items-start gap-2">
+              <div className="flex items-center gap-2 md:gap-3">
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 shrink-0 filter drop-shadow-md">
+                  <Image
+                    src="/images/logo-colibri.png"
+                    alt="Le Colibri du Bien-Être"
+                    fill
+                    className="object-contain"
                   />
-                </label>
-
-                <label className="block">
-                  <span className="mb-1 block text-sm font-medium text-[#5d433d]">Offert par</span>
-                  <input
-                    type="text"
-                    name="offertPar"
-                    value={formData.offertPar}
-                    onChange={handleChange}
-                    placeholder="Votre nom"
-                    className="w-full rounded-2xl border border-[#ebddd2] bg-[#fffdfb] px-3.5 py-3 text-sm outline-none transition focus:border-[#c5967e] focus:ring-2 focus:ring-[#f3d9ca]"
-                  />
-                </label>
-              </div>
-
-              <label className="block">
-                <span className="mb-1 block text-sm font-medium text-[#5d433d]">Prestation</span>
-                <input
-                  type="text"
-                  name="prestation"
-                  value={formData.prestation}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-[#ebddd2] bg-[#fffdfb] px-3.5 py-3 text-sm outline-none transition focus:border-[#c5967e] focus:ring-2 focus:ring-[#f3d9ca]"
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-1 block text-sm font-medium text-[#5d433d]">Message personnalisé</span>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={3}
-                  className="w-full rounded-2xl border border-[#ebddd2] bg-[#fffdfb] px-3.5 py-3 text-sm outline-none transition focus:border-[#c5967e] focus:ring-2 focus:ring-[#f3d9ca]"
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-1 block text-sm font-medium text-[#5d433d]">Email du client</span>
-                <input
-                  type="email"
-                  name="emailClient"
-                  value={formData.emailClient}
-                  onChange={handleChange}
-                  placeholder="client@email.com"
-                  className="w-full rounded-2xl border border-[#ebddd2] bg-[#fffdfb] px-3.5 py-3 text-sm outline-none transition focus:border-[#c5967e] focus:ring-2 focus:ring-[#f3d9ca]"
-                />
-              </label>
-
-              <div className="pt-2">
-                <p className="mb-2 text-sm font-medium text-[#5d433d]">Thème visuel de la carte</p>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setTheme("plaisir")}
-                    className={
-                      theme === "plaisir"
-                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
-                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
-                    }
-                  >
-                    <Gift className="h-4 w-4" /> Plaisir d'offrir
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setTheme("zen")}
-                    className={
-                      theme === "zen"
-                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
-                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
-                    }
-                  >
-                    <Sparkles className="h-4 w-4" /> Ambiance Zen
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setTheme("fetes")}
-                    className={
-                      theme === "fetes"
-                        ? "inline-flex items-center gap-2 rounded-full border border-[#7a5a48] bg-[#7a5a48] px-4 py-2 text-sm font-medium text-white shadow-sm transition"
-                        : "inline-flex items-center gap-2 rounded-full border border-[#ebddd2] bg-[#fffaf6] px-4 py-2 text-sm font-medium text-[#5d433d] transition hover:border-[#d4b6a4]"
-                    }
-                  >
-                    <Snowflake className="h-4 w-4" /> Fêtes de fin d'année
-                  </button>
                 </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="flex items-center justify-center lg:sticky lg:top-28 h-fit">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              className="w-full max-w-[650px] rounded-[32px] border-2 border-[#e7d6c6] p-8 shadow-xl relative overflow-hidden flex flex-col justify-between bg-cover bg-center"
-              style={Object.assign({ minHeight: "420px" }, bgStyle)}
-            >
-              <div
-                className={
-                  theme === "plaisir"
-                    ? "absolute inset-0 bg-gradient-to-br from-[#fffdfb] via-[#fff8f3] to-[#fef2e8] pointer-events-none"
-                    : "absolute inset-0 bg-white/80 backdrop-blur-[1px] pointer-events-none"
-                }
-              />
-
-              <div className="relative z-10 flex items-center justify-between border-b border-[#f0e2d7] pb-4">
-                <div className="flex items-center gap-2 text-[#7a5a48]">
-                  <Gift className="h-5 w-5" />
-                  <span className="text-xs font-bold uppercase tracking-[0.2em]">Le Colibri du Bien-Être</span>
-                </div>
-                <span className="rounded-full bg-[#fff2e8]/90 px-3 py-1 text-xs font-semibold text-[#7a5a48] uppercase tracking-wider">
-                  {theme}
-                </span>
-              </div>
-
-              <div className="relative z-10 py-6 space-y-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9a7b69]">Offert à</p>
-                  <h3 className="text-2xl font-bold text-[#2d1f1f] mt-1">
-                    {formData.beneficiaire || "Nom du bénéficiaire"}
+                  <h3
+                    className={`text-xs sm:text-sm md:text-base font-bold tracking-wide leading-tight drop-shadow-md ${
+                      theme === "plaisir" ? "text-amber-950" : "text-amber-100"
+                    }`}
+                  >
+                    Le Colibri du Bien-Être
                   </h3>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9a7b69]">Prestation incluse</p>
-                  <p className="text-base font-medium text-[#4a3833] mt-1">
-                    {formData.prestation}
-                  </p>
-                </div>
-
-                <div className="bg-white/90 p-4 rounded-2xl border border-[#f5e6dc] shadow-sm">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9a7b69] mb-1">Message personnalisé</p>
-                  <p className="text-sm italic text-[#5d433d]">
-                    &ldquo;{formData.message || "Votre message apparaîtra ici..."}&rdquo;
+                  <p
+                    className={`text-[9px] sm:text-xs italic ${
+                      theme === "plaisir" ? "text-amber-900 font-medium" : "text-amber-200"
+                    }`}
+                  >
+                    Soin & Sérénité
                   </p>
                 </div>
               </div>
 
-              <div className="relative z-10 flex items-end justify-between border-t border-[#f0e2d7] pt-4 text-sm">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9a7b69]">De la part de</p>
-                  <p className="font-bold text-[#2d1f1f] mt-0.5">{formData.offertPar || "Votre nom"}</p>
+              <div
+                className={`text-[9px] sm:text-[10px] md:text-xs font-semibold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full backdrop-blur-md flex items-center gap-1 border shrink-0 ${
+                  theme === "plaisir"
+                    ? "bg-amber-900/90 text-amber-50 border-amber-600/40"
+                    : "bg-amber-500/90 text-amber-950 border-amber-300/60 shadow-sm"
+                }`}
+              >
+                {theme === "fetes" ? <Snowflake size={11} /> : <Gift size={11} />}
+                <span>{theme === "fetes" ? "Bon des Fêtes" : "Carte Cadeau"}</span>
+              </div>
+            </div>
+
+            {/* Corps de Carte */}
+            <div className="relative z-10 my-auto space-y-1.5 sm:space-y-2">
+              <div
+                className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl border backdrop-blur-md shadow-sm ${
+                  theme === "plaisir"
+                    ? "bg-white/90 border-amber-200/90 text-amber-950"
+                    : "bg-black/55 border-white/20 text-white"
+                }`}
+              >
+                <p
+                  className={`text-[8px] sm:text-[10px] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1 ${
+                    theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                  }`}
+                >
+                  <Sparkles size={11} /> Soin Offert :
+                </p>
+                <p className="text-[11px] sm:text-xs md:text-sm font-bold leading-tight">
+                  {formData.prestation}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                <div
+                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                    theme === "plaisir"
+                      ? "bg-white/85 border-amber-200/70 text-amber-950"
+                      : "bg-black/50 border-white/20 text-white"
+                  }`}
+                >
+                  <span
+                    className={`block text-[8px] sm:text-[10px] font-semibold ${
+                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                    }`}
+                  >
+                    Pour :
+                  </span>
+                  <span className="font-semibold truncate block">
+                    {formData.beneficiaire || "Prénom Nom"}
+                  </span>
                 </div>
-                <div className="text-right text-xs text-[#8c6d5c]">
-                  <span>{formData.emailClient || "contact@lecolibridubienetre.com"}</span>
+
+                <div
+                  className={`p-1.5 sm:p-2 rounded-lg border backdrop-blur-md shadow-sm ${
+                    theme === "plaisir"
+                      ? "bg-white/85 border-amber-200/70 text-amber-950"
+                      : "bg-black/50 border-white/20 text-white"
+                  }`}
+                >
+                  <span
+                    className={`block text-[8px] sm:text-[10px] font-semibold ${
+                      theme === "plaisir" ? "text-amber-800" : "text-amber-300"
+                    }`}
+                  >
+                    De la part de :
+                  </span>
+                  <span className="font-semibold truncate block">
+                    {formData.offertPar || "Prénom Nom"}
+                  </span>
                 </div>
               </div>
-            </motion.div>
-          </section>
+
+              {formData.message && (
+                <p
+                  className={`text-[9px] sm:text-xs italic text-center px-1 truncate drop-shadow-sm ${
+                    theme === "plaisir" ? "text-amber-950 font-semibold" : "text-amber-100"
+                  }`}
+                >
+                  « {formData.message} »
+                </p>
+              )}
+            </div>
+
+            {/* Pied de Carte */}
+            <div
+              className={`relative z-10 p-1.5 sm:p-2 rounded-lg border backdrop-blur-md flex justify-between items-end text-[8px] sm:text-[10px] md:text-xs font-semibold ${
+                theme === "plaisir"
+                  ? "bg-amber-950/90 text-amber-50 border-amber-800/80 shadow-md"
+                  : "bg-black/75 text-amber-100 border-amber-300/40 shadow-md"
+              }`}
+            >
+              <div>
+                <p>
+                  Code : <span className="font-mono font-bold text-amber-300">CADEAU-2026-X7K</span>
+                </p>
+                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">Valable 1 an après achat</p>
+              </div>
+
+              <div className="text-right">
+                <p className="text-amber-200 font-bold">Sur RDV : 06 92 61 14 66</p>
+                <p className="text-[7px] sm:text-[9px] opacity-80 font-normal">lecolibridubienetre.fr</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
