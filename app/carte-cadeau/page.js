@@ -298,13 +298,17 @@ export default function CarteCadeauPage() {
               </div>
 
               {formData.message && (
-                <p
-                  className={`text-[9px] sm:text-xs italic text-center px-1 truncate drop-shadow-sm ${
-                    theme === "plaisir" ? "text-amber-950 font-semibold" : "text-amber-100"
+                <div
+                  className={`mx-auto max-w-[90%] px-3 py-1 rounded-lg backdrop-blur-md border shadow-sm text-center transition-all ${
+                    theme === "plaisir"
+                      ? "bg-white/70 border-amber-200/60 text-amber-950"
+                      : "bg-black/40 border-white/15 text-amber-100"
                   }`}
                 >
-                  « {formData.message} »
-                </p>
+                  <p className="text-[9px] sm:text-xs italic font-medium tracking-wide">
+                    « {formData.message} »
+                  </p>
+                </div>
               )}
             </div>
 
