@@ -18,7 +18,8 @@
     "puppeteer": "^25.12.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "resend": "^6.28.1"
+    "resend": "^6.28.1",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",
