@@ -155,27 +155,35 @@ export default function GiftCard({
         }
 
         .gift-brand {
-          display: flex;
-          align-items: center;
-          gap: 1.2cqw;
-          min-width: 0;
-        }
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  min-width: 0;
+  padding: 1.5cqw 2cqw;
+  background: rgba(255, 248, 220, 0.78);
+backdrop-filter: blur(3px);
+  border: 0.2cqw solid #d4af37;
+  border-radius: 2cqw;
+  box-shadow: 0 0.3cqw 0.8cqw rgba(0,0,0,0.15);
+}
 
-        .gift-logo {
-          position: relative;
-          flex: 0 0 7cqw;
-          width: 7cqw;
-          height: 7cqw;
-          filter: drop-shadow(0 0.3cqw 0.3cqw rgba(0,0,0,0.25));
-        }
+       .gift-logo {
+  position: relative;
+  flex: 0 0 10cqw;
+  width: 10cqw;
+  height: 10cqw;
+  filter: drop-shadow(0 0.4cqw 0.4cqw rgba(0,0,0,0.25));
+}
 
-        .gift-brand-text h3 {
-          font-size: 2.1cqw;
-          line-height: 1.15;
-          font-weight: 800;
-          letter-spacing: 0.02em;
-          margin: 0;
-        }
+	.gift-brand-text h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3.6cqw;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  margin: 0;
+  color: #422006;
+}
 
         .gift-brand-text p {
           font-size: 1.45cqw;
@@ -189,24 +197,28 @@ export default function GiftCard({
         }
 
         .gift-fetes .gift-brand-text p {
-          color: #fde68a;
+          color: #78350f;
         }
+
+.gift-fetes .gift-brand-text h3 {
+  color: #422006;
+}
 
         .gift-badge {
           display: flex;
           align-items: center;
           gap: 0.7cqw;
-          padding: 0.8cqw 1.6cqw;
+          padding: 1cqw 1.8cqw;
           border-radius: 5cqw;
-          font-size: 1.45cqw;
+          font-size: 1.9cqw;
           font-weight: 700;
           border: 0.15cqw solid rgba(255,255,255,0.25);
           white-space: nowrap;
         }
 
         .gift-badge svg {
-          width: 1.7cqw;
-          height: 1.7cqw;
+          width: 2.2cqw;
+          height: 2.2cqw;
         }
 
         .gift-plaisir .gift-badge {
@@ -227,7 +239,7 @@ export default function GiftCard({
           margin-bottom: auto;
           display: flex;
           flex-direction: column;
-          gap: 1cqw;
+          gap: 1.8cqw;
         }
 
         .gift-prestation {
@@ -255,15 +267,15 @@ export default function GiftCard({
           align-items: center;
           gap: 0.5cqw;
           margin: 0 0 0.4cqw;
-          font-size: 1.25cqw;
+          font-size: 1.8cqw;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.08em;
         }
 
         .gift-label svg {
-          width: 1.6cqw;
-          height: 1.6cqw;
+          width: 1.9cqw;
+          height: 1.9cqw;
         }
 
         .gift-plaisir .gift-label {
@@ -275,7 +287,7 @@ export default function GiftCard({
         }
 
         .gift-prestation-name {
-          font-size: 1.7cqw;
+          font-size: 2.8cqw;
           font-weight: 800;
           line-height: 1.25;
           margin: 0;
@@ -290,7 +302,7 @@ export default function GiftCard({
 
         .gift-person {
           min-width: 0;
-          padding: 1cqw;
+          padding: 1.4cqw;
           border: 0.15cqw solid;
           border-radius: 1.2cqw;
           backdrop-filter: blur(0.5cqw);
@@ -313,7 +325,7 @@ export default function GiftCard({
         }
 
         .gift-person span {
-          font-size: 1.2cqw;
+          font-size: 1.8cqw;
           font-weight: 600;
         }
 
@@ -327,15 +339,15 @@ export default function GiftCard({
 
         .gift-person strong {
           display: block;
-          font-size: 1.5cqw;
+          font-size: 2.4cqw;
           line-height: 1.2;
           overflow-wrap: anywhere;
         }
 
         .gift-message {
-          width: 90%;
+          width: 94%;
           align-self: center;
-          padding: 0.8cqw 1.5cqw;
+          padding: 1.3cqw 1.8cqw;
           border: 0.15cqw solid;
           border-radius: 1.2cqw;
           text-align: center;
@@ -357,10 +369,10 @@ export default function GiftCard({
 
         .gift-message p {
           margin: 0;
-          font-size: 1.4cqw;
+          font-size: 2.1cqw;
           font-style: italic;
-          font-weight: 600;
-          line-height: 1.3;
+          font-weight: 700;
+          line-height: 1.4;
         }
 
         .gift-footer {
@@ -370,10 +382,10 @@ export default function GiftCard({
           justify-content: space-between;
           align-items: flex-end;
           gap: 2cqw;
-          padding: 1cqw 1.2cqw;
+          padding: 1.6cqw 1.8cqw;
           border: 0.15cqw solid;
           border-radius: 1.2cqw;
-          font-size: 1.4cqw;
+          font-size: 2cqw;
           font-weight: 700;
           backdrop-filter: blur(0.5cqw);
         }
@@ -393,6 +405,7 @@ export default function GiftCard({
         .gift-footer p {
           margin: 0;
           line-height: 1.3;
+	  font-size: 1.15em;
         }
 
         .gift-footer-code strong {
@@ -403,7 +416,7 @@ export default function GiftCard({
         .gift-footer span {
           display: block;
           margin-top: 0.3cqw;
-          font-size: 1.05cqw;
+          font-size: 1.55cqw;
           font-weight: 400;
           opacity: 0.85;
         }

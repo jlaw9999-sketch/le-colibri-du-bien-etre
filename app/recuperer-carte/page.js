@@ -10,6 +10,9 @@ export default function RecupererCartePage() {
   const [cartes, setCartes] = useState([]);
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [sending, setSending] = useState(false);
+  const [message, setMessage] = useState('');
   const [printingIndex, setPrintingIndex] = useState(null);
 
   useEffect(() => {
@@ -18,9 +21,6 @@ export default function RecupererCartePage() {
       const token = params.get('token');
 
       if (!token) {
-        setError(
-          'Lien de récupération manquant. Veuillez utiliser le lien reçu par e-mail.'
-        );
         setLoading(false);
         return;
       }
@@ -50,6 +50,36 @@ export default function RecupererCartePage() {
 
     recupererCartes();
   }, []);
+
+  const handleRequestLink = async (event) => {
+    event.preventDefault();
+    setError('');
+    setMessage('');
+    setSending(true);
+
+    try {
+      const response = await fetch('/api/recuperer-carte', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.error || 'Impossible de traiter votre demande.');
+      } else {
+        setMessage(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Impossible de contacter le serveur.');
+    } finally {
+      setSending(false);
+    }
+  };
 
   const handlePrint = (index) => {
     setPrintingIndex(index);
@@ -178,6 +208,48 @@ export default function RecupererCartePage() {
         </p>
       </div>
 
+      {/* Formulaire de récupération par e-mail */}
+      {!loading && !searched && (
+        <div className="max-w-md w-full bg-white rounded-xl border border-amber-100 shadow-sm p-6 mb-6 print-hidden">
+          <form onSubmit={handleRequestLink}>
+            <label
+              htmlFor="email-recuperation"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Adresse e-mail utilisée lors de votre achat
+            </label>
+
+            <input
+              id="email-recuperation"
+              type="email"
+              required
+              maxLength={254}
+              autoComplete="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="votre@email.com"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600"
+            />
+
+            <button
+              type="submit"
+              disabled={sending}
+              className="w-full mt-4 bg-amber-700 hover:bg-amber-800 disabled:opacity-60 text-white font-medium px-6 py-3 rounded-full text-sm transition shadow-md cursor-pointer"
+            >
+              {sending
+                ? 'Envoi en cours...'
+                : 'Recevoir mon lien de récupération'}
+            </button>
+          </form>
+
+          {message && (
+            <p className="text-green-700 text-sm text-center mt-4">
+              {message}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* Chargement */}
       {loading && (
         <p className="text-amber-800 text-sm mb-6 print-hidden">
@@ -206,7 +278,7 @@ export default function RecupererCartePage() {
       {/* Cartes retrouvées */}
       {cartes.map((carte, index) => (
         <div
-          key={carte.code || index}
+          key={`${carte.code}-${index}`}
           className={`w-full max-w-2xl mb-8 printable-card-wrapper flex flex-col items-center ${
             printingIndex === index ? 'print-target' : ''
           }`}
