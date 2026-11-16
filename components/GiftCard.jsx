@@ -90,7 +90,7 @@ export default function GiftCard({
             <p>
               Code : <strong>{code || "CODE-INDISPONIBLE"}</strong>
             </p>
-            <span>Valable 1 an après achat</span>
+            <span>Valable 6 mois après achat</span>
           </div>
 
           <div className="gift-footer-contact">

@@ -1,6 +1,7 @@
+
 "use client";
 
-import { Mail, Phone, Facebook } from "lucide-react";
+import { Mail, Phone, Facebook, Gift, RefreshCw } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
@@ -53,6 +54,24 @@ export default function Footer() {
             <li>
               <Link href="/reservation" className="hover:text-amber-700">
                 Réservation
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/carte-cadeau"
+                className="flex items-center gap-2 hover:text-amber-700 transition-colors"
+              >
+                <Gift size={17} className="text-amber-700" />
+                Carte cadeaux
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/recuperer-carte"
+                className="flex items-center gap-2 hover:text-amber-700 transition-colors"
+              >
+                <RefreshCw size={16} />
+                Récupérer ma carte
               </Link>
             </li>
             <li>
