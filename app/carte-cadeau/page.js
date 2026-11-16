@@ -19,6 +19,7 @@ const listePrestations = [
   { name: "Massage sportif – préparation avant effort", duration: "1h30", price: "130 €" },
   { name: "Massage récupération après l’effort", duration: "1h00", price: "150 €" },
   { name: "Massage profond avec points d’acupression", duration: "1h30", price: "95 €" },
+  { name: "TEST TECHNIQUE – Carte cadeau 1 €", duration: "Test uniquement", price: "1 €" },
 ];
 
 const tarifsPrestations = {
@@ -33,6 +34,7 @@ const tarifsPrestations = {
   "Massage sportif – préparation avant effort": 130,
   "Massage récupération après l’effort": 150,
   "Massage profond avec points d’acupression": 95,
+  "TEST TECHNIQUE – Carte cadeau 1 €": 1,
 };
 
 export default function CarteCadeauPage() {

@@ -21,6 +21,7 @@ const tarifsPrestations = {
   "Massage sportif – préparation avant effort": 130,
   "Massage récupération après l’effort": 150,
   "Massage profond avec points d’acupression": 95,
+  "TEST TECHNIQUE – Carte cadeau 1 €": 1,
 };
 
 // ============================================================
