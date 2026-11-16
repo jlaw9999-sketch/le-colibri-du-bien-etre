@@ -89,6 +89,67 @@ export default function HomePage() {
         </motion.div>
       </section>
 
+      {/* --- NOUVEAUTÉ : CARTES CADEAUX --- */}
+      <section className="px-5 py-16 md:py-20 bg-gradient-to-b from-amber-50 to-white">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="max-w-6xl mx-auto overflow-hidden rounded-3xl border border-amber-200 bg-[#fffdf7] shadow-xl"
+        >
+          <div className="grid md:grid-cols-2 items-center">
+            <div className="relative h-[300px] md:h-[390px] bg-[#f8f1e5]">
+              <Image
+                src="/images/carte-cadeau-accueil.png"
+                alt="Carte cadeau du Colibri du Bien-Être dans une ambiance zen et raffinée"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            <div className="px-7 py-10 md:px-12 md:py-14 text-center">
+              <div className="flex justify-center items-center gap-2 mb-5">
+                <span className="text-2xl">🎁</span>
+                <span className="text-xs md:text-sm font-bold tracking-[0.2em] text-amber-700">
+                  GRANDE NOUVEAUTÉ
+                </span>
+              </div>
+
+              <h2 className="text-3xl md:text-4xl font-semibold text-amber-800 mb-5">
+                Offrez un instant de bien-être
+              </h2>
+
+              <p className="text-gray-600 italic text-lg mb-5">
+                Le plus beau des cadeaux est parfois un moment pour soi…
+              </p>
+
+              <p className="text-gray-600 leading-relaxed mb-8">
+                Faites plaisir à vos proches avec une parenthèse de douceur,
+                de détente et de sérénité grâce à nos cartes cadeaux.
+              </p>
+
+              <div className="flex flex-col gap-4 items-center">
+                <Link
+                  href="/carte-cadeau"
+                  className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-md transition duration-300"
+                >
+                  🎁 Découvrir les cartes cadeaux
+                </Link>
+
+                <Link
+                  href="/recuperer-carte"
+                  className="text-amber-800 hover:text-amber-600 underline underline-offset-4 text-sm font-medium transition"
+                >
+                  J'ai déjà une carte cadeau
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* --- SECTION DÉCOUVERTE --- */}
       <section className="py-20 px-6 bg-gradient-to-b from-amber-50 to-white text-center">
         <h2 className="text-3xl font-semibold text-amber-700 mb-6">
